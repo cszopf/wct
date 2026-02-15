@@ -13,6 +13,7 @@ import SmartOneSection from './components/SmartOneSection';
 import EducationHub from './components/EducationHub';
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
+import ClosingGuard from './components/ClosingGuard';
 
 const App: React.FC = () => {
   const [role, setRole] = useState<UserRole>(UserRole.AGENT);
@@ -41,6 +42,8 @@ const App: React.FC = () => {
         <MarketingStudio />
         
         <TrustSection />
+
+        <ClosingGuard />
         
         <DynamicValuePanel role={role} />
         
