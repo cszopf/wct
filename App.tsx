@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { UserRole } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -62,6 +63,7 @@ const App: React.FC = () => {
       <Footer />
       
       <Assistant role={role} />
+      <Analytics />
     </div>
   );
 };
