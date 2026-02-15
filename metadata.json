@@ -1,0 +1,8 @@
+{
+  "name": "World Class Title (WCT) - Powered by Smart",
+  "description": "A premium, modern title experience website featuring role-based personalization, real-time trust metrics, and Smart technology integration.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
