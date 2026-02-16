@@ -29,7 +29,7 @@ const ClosingGuard: React.FC = () => {
       reader.onloadend = () => {
         try {
           const base64Data = (reader.result as string).split(',')[1];
-          if (!base64Data) throw new Error("Could not extract base64 data");
+          if (!base64Data) throw new Error("Could not extract document data");
           resolve({
             inlineData: {
               data: base64Data,
@@ -63,16 +63,12 @@ const ClosingGuard: React.FC = () => {
       return;
     }
 
-    if (!process.env.API_KEY) {
-      setError("Service configuration error: API Key is missing. Please contact support.");
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
     setComparisonResult(null);
 
     try {
+      // Directly initialize - the SDK handles the process.env.API_KEY injection
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       
       const contractParts = await Promise.all(contractFiles.map(f => fileToPart(f)));
@@ -85,51 +81,49 @@ const ClosingGuard: React.FC = () => {
             parts: [
               ...contractParts as any[],
               disclosurePart as any,
-              { text: "Initiate WCT Smart Audit on the provided documents. Identify if the data is synchronized across the contract, all addendums, and the final disclosure." }
+              { text: "Execute WCT Smart Audit. Compare all contract addendums against the closing disclosure for total synchronization." }
             ]
           }
         ],
         config: {
-          systemInstruction: `You are the World Class Title (WCT) Smart Audit Engine. 
+          systemInstruction: `You are the World Class Title (WCT) Smart Audit Engine. Your goal is to ensure 100% transaction precision for our growth partners.
+          
           Analyze the provided documents: 
-          1. The Purchase Contract and all its Addendums (Multiple files may be provided)
-          2. The Closing Disclosure (CD)
+          1. The Purchase Contract and all its Addendums (Extensions, Price Adjustments, Repair Credits).
+          2. The Closing Disclosure (CD).
           
-          Task: Perform a comprehensive WCT Smart Audit by cross-referencing the Purchase Contract and all Addendums with the Closing Disclosure.
+          Task: Cross-reference these documents with extreme scrutiny. 
           
-          Identify if data points are "SYNCHRONIZED" or if there are "GROWTH PROTECTION ALERTS" (discrepancies) in:
-          - Sale Price (accounting for all price adjustments in addendums)
-          - Earnest Money / Deposit amounts
-          - Seller Credits (specifically looking for repair or closing cost credits mentioned in any addendum)
-          - Prorated taxes and Commissions
+          Terminology to use:
+          - "SYNCHRONIZED": When figures match perfectly.
+          - "GROWTH PROTECTION ALERT": When there is a discrepancy.
+          - "WCT PRECISION RATING": Your confidence in the audit.
           
-          Report Formatting Requirements (WCT Elite Branded Style):
-          1. **WCT SMART ANALYSIS SUMMARY**: A high-level status (e.g., "STATUS: FULLY SYNCHRONIZED" or "STATUS: ACTION REQUIRED").
-          2. **GROWTH PARTNER DATA BREAKDOWN**: A professional comparison of Sale Price, Credits, and Deposits.
-          3. **GROWTH PROTECTION ALERTS**: Explicit callouts for any differences found, clearly referencing which document or addendum the conflicting information came from.
-          4. **WCT AUDIT CONCLUSION**: A professional, growth-focused summary statement.
+          Structure your report:
+          1. **WCT SMART AUDIT SUMMARY**: Overall status of the file.
+          2. **GROWTH PARTNER DATA BREAKDOWN**: Table-like comparison of Sale Price, Earnest Money, and specific Seller Credits.
+          3. **DISCREPANCY ANALYSIS**: Detailed callouts for any "GROWTH PROTECTION ALERTS", citing specific addendums.
+          4. **WCT PROACTIVE CONCLUSION**: Final recommendation for the title agent.
           
-          Tone: Professional, elite, growth-focused, and highly precise. Use WCT-specific terminology where appropriate to reflect our identity as a modern growth partner.`,
+          Tone: Professional, elite, and proactive. Use bold headers. Do not use conversational filler. Focus strictly on the data.`,
           temperature: 0.1,
         }
       });
 
       if (!response.text) {
-        throw new Error("The AI was unable to process the text in these documents. Please ensure the images/PDFs are clear and legible.");
+        throw new Error("The Smart Engine was unable to extract clear data from these files. Please ensure documents are well-lit and legible.");
       }
 
       setComparisonResult(response.text);
     } catch (err: any) {
-      console.error("Comparison Error Details:", err);
-      // More specific error handling for common API issues
+      console.error("WCT Audit Error:", err);
+      // Map technical errors to user-friendly WCT branded messages
       if (err.message?.includes('403') || err.message?.includes('API_KEY')) {
-        setError("Configuration error: The audit service is currently unavailable. Please verify API credentials.");
-      } else if (err.message?.includes('Too Many Requests') || err.message?.includes('429')) {
-        setError("The audit service is currently busy. Please wait a moment and try again.");
-      } else if (err.message?.includes('Request payload size exceeds the limit')) {
-        setError("Total file size is too large. Please try uploading fewer or smaller files.");
+        setError("Secure Connection Unavailable: The audit engine is undergoing maintenance. Please contact your WCT account executive.");
+      } else if (err.message?.includes('429')) {
+        setError("High Traffic Alert: The Smart Audit Engine is processing multiple files. Please retry in 30 seconds.");
       } else {
-        setError(err.message || "An unexpected error occurred during the audit. Please try again with clear document images.");
+        setError(err.message || "An unexpected error occurred. Please refresh and ensure files are under 10MB.");
       }
     } finally {
       setIsLoading(false);
@@ -164,7 +158,7 @@ const ClosingGuard: React.FC = () => {
           <div class="header">
             <img src="${logoUrl}" class="logo" />
             <h1 class="title">Closing Guard™ Smart Audit Report</h1>
-            <div class="meta">WCT Intelligence Engine v3.1 | Generated: ${timestamp}</div>
+            <div class="meta">WCT Intelligence Engine v3.2 | Generated: ${timestamp}</div>
           </div>
           <div class="content">${comparisonResult.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>
           <div class="disclaimer">${disclaimer}</div>
@@ -185,6 +179,14 @@ const ClosingGuard: React.FC = () => {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+  };
+
+  // Helper to render basic markdown bolding in UI
+  const formatResultText = (text: string) => {
+    return text.split('\n').map((line, i) => {
+      const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      return <div key={i} className="mb-1" dangerouslySetInnerHTML={{ __html: formatted }} />;
+    });
   };
 
   return (
@@ -210,7 +212,7 @@ const ClosingGuard: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Branded Analysis</h4>
-                  <p className="text-sm text-slate-500">Every report is tailored to WCT's elite standards of transaction precision.</p>
+                  <p className="text-sm text-slate-500">Tailored to WCT's elite standards of transaction precision.</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -219,7 +221,7 @@ const ClosingGuard: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Growth Protection</h4>
-                  <p className="text-sm text-slate-500">Automated discrepancy alerts keep your commissions and credits safe.</p>
+                  <p className="text-sm text-slate-500">Automated alerts keep your commissions and credits safe.</p>
                 </div>
               </div>
             </div>
@@ -232,8 +234,8 @@ const ClosingGuard: React.FC = () => {
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${contractFiles.length > 0 ? 'bg-teal-50 text-teal-600' : 'bg-slate-100 text-slate-400'}`}>
                     <FileText className="w-8 h-8" />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">Contracts & Addendums</h3>
-                  <p className="text-xs text-slate-500 mb-6">Upload contract plus any price or repair addendums</p>
+                  <h3 className="font-bold text-slate-900 mb-2 text-xs uppercase tracking-widest">Contracts & Addendums</h3>
+                  <p className="text-[10px] text-slate-400 mb-6 uppercase">Upload contract plus any price or repair addendums</p>
                   
                   <div className="w-full space-y-2 mb-6">
                     {contractFiles.map((file, idx) => (
@@ -246,7 +248,7 @@ const ClosingGuard: React.FC = () => {
                     ))}
                   </div>
 
-                  <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest flex items-center gap-2">
+                  <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest flex items-center gap-2 shadow-sm">
                     <Plus className="w-3 h-3" />
                     {contractFiles.length > 0 ? 'Add More Docs' : 'Select Files'}
                     <input 
@@ -265,8 +267,8 @@ const ClosingGuard: React.FC = () => {
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${disclosureFile ? 'bg-teal-50 text-teal-600' : 'bg-slate-100 text-slate-400'}`}>
                     <FileSearch className="w-8 h-8" />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">Closing Disclosure</h3>
-                  <p className="text-xs text-slate-500 mb-6">Upload latest CD draft</p>
+                  <h3 className="font-bold text-slate-900 mb-2 text-xs uppercase tracking-widest">Closing Disclosure</h3>
+                  <p className="text-[10px] text-slate-400 mb-6 uppercase">Upload latest CD draft</p>
                   
                   {disclosureFile && (
                      <div className="w-full px-4 py-2 bg-teal-50 rounded-xl border border-teal-100 mb-6 flex items-center justify-between">
@@ -277,7 +279,7 @@ const ClosingGuard: React.FC = () => {
                      </div>
                   )}
 
-                  <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest">
+                  <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest shadow-sm">
                     {disclosureFile ? 'Change File' : 'Select File'}
                     <input 
                       type="file" 
@@ -300,7 +302,7 @@ const ClosingGuard: React.FC = () => {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Running Smart Audit...</span>
+                      <span>Synchronizing Data...</span>
                     </>
                   ) : (
                     <>
@@ -313,9 +315,9 @@ const ClosingGuard: React.FC = () => {
               </button>
 
               {error && (
-                <div className="mt-8 flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <AlertTriangle className="w-5 h-5 shrink-0" />
-                  <p className="text-xs font-bold leading-tight">{error}</p>
+                <div className="mt-8 flex items-start gap-3 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 animate-in fade-in slide-in-from-top-2 duration-300 max-w-md">
+                  <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+                  <p className="text-xs font-bold leading-tight uppercase tracking-wider">{error}</p>
                 </div>
               )}
 
@@ -327,13 +329,13 @@ const ClosingGuard: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-xl font-header font-extrabold text-[#004EA8]">Official WCT Audit Results</h4>
-                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest leading-none mt-1">Smart Engine Analysis v3.1</p>
+                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest leading-none mt-1">Smart Engine v3.2 ACTIVE</p>
                     </div>
                   </div>
                   
                   <div className="prose prose-slate max-w-none mb-10">
-                    <div className="text-slate-600 font-subheader leading-relaxed whitespace-pre-wrap">
-                      {comparisonResult}
+                    <div className="text-slate-600 font-subheader text-sm leading-relaxed whitespace-pre-wrap">
+                      {formatResultText(comparisonResult)}
                     </div>
                   </div>
 
@@ -349,14 +351,14 @@ const ClosingGuard: React.FC = () => {
                   <div className="pt-8 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-3 order-2 sm:order-1">
                       <div className="w-2 h-2 bg-[#64CCC9] rounded-full animate-pulse" />
-                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">Audit Engine Synchronized</p>
+                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">Audit Pipeline Secure</p>
                     </div>
                     <button 
                       onClick={handleDownloadReport}
-                      className="px-8 py-3 bg-[#004EA8] text-white rounded-full text-xs font-header font-black uppercase tracking-widest flex items-center gap-3 hover:bg-[#003375] transition-all hover:shadow-xl order-1 sm:order-2 shadow-md active:scale-95"
+                      className="px-8 py-3 bg-[#004EA8] text-white rounded-full text-[10px] font-header font-black uppercase tracking-widest flex items-center gap-3 hover:bg-[#003375] transition-all hover:shadow-xl order-1 sm:order-2 shadow-md active:scale-95"
                     >
                       <Download className="w-4 h-4" />
-                      Download WCT Branded Report
+                      Download WCT Report
                     </button>
                   </div>
                 </div>
