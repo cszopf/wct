@@ -11,6 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled }) => {
   const roles = Object.values(UserRole);
+  const logoUrl = "https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png?format=1500w";
 
   return (
     <header 
@@ -19,17 +20,14 @@ const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled }
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo - Styled after Brand Guide */}
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <div className="w-12 h-12 border border-[#B9D9EB] rounded-full flex items-center justify-center">
-              <span className="text-[#004EA8] font-header text-2xl lowercase italic font-light">wct</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[#004EA8] font-header font-bold leading-none text-sm tracking-[0.15em]">WORLD CLASS TITLE</span>
-          </div>
-        </div>
+        {/* Official Logo Branding */}
+        <a href="/" className="flex items-center">
+          <img 
+            src={logoUrl} 
+            alt="World Class Title" 
+            className="h-10 lg:h-12 w-auto object-contain"
+          />
+        </a>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">

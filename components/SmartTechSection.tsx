@@ -28,7 +28,8 @@ const SmartTechSection: React.FC = () => {
               {features.map((f, i) => (
                 <div key={i} className="flex gap-6 group">
                   <div className="w-12 h-12 bg-white rounded-xl shadow-md flex items-center justify-center text-slate-900 group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
-                    {React.cloneElement(f.icon as React.ReactElement, { className: "w-6 h-6" })}
+                    {/* Fixed: Added <any> to React.ReactElement to allow className property in cloneElement */}
+                    {React.cloneElement(f.icon as React.ReactElement<any>, { className: "w-6 h-6" })}
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-slate-900 mb-1">{f.title}</h4>

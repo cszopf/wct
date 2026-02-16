@@ -23,7 +23,8 @@ const MarketingStudio: React.FC = () => {
           {MARKETING_PILLARS.map((pillar, i) => (
             <div key={i} className="group p-8 rounded-[2.5rem] bg-white border border-slate-100 hover:border-[#64CCC9]/30 hover:shadow-2xl transition-all duration-500">
               <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-[#004EA8] group-hover:bg-[#004EA8] group-hover:text-white transition-all mb-8">
-                {React.cloneElement(pillar.icon as React.ReactElement, { className: "w-7 h-7" })}
+                {/* Fixed: Added <any> to React.ReactElement to allow className property in cloneElement */}
+                {React.cloneElement(pillar.icon as React.ReactElement<any>, { className: "w-7 h-7" })}
               </div>
               <h3 className="text-lg font-header font-bold text-slate-900 mb-4">{pillar.title}</h3>
               <p className="text-sm text-slate-500 font-subheader leading-relaxed mb-8">{pillar.description}</p>

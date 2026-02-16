@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Globe } from 'lucide-react';
+import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const licensedStates = [
@@ -8,18 +8,19 @@ const Footer: React.FC = () => {
     'Kentucky', 'Indiana', 'Virginia', 'Tennessee'
   ];
 
+  const logoUrl = "https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png?format=1500w";
+
   return (
     <footer className="bg-slate-50 pt-24 pb-12 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 border border-[#B9D9EB] rounded-full flex items-center justify-center">
-                <span className="text-[#004EA8] font-header text-2xl lowercase italic font-light">wct</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[#004EA8] font-header font-bold leading-none text-sm tracking-[0.15em]">WORLD CLASS TITLE</span>
-              </div>
+            <div className="flex items-center mb-8">
+              <img 
+                src={logoUrl} 
+                alt="World Class Title" 
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <p className="text-slate-500 font-subheader mb-10 leading-relaxed text-sm">
               Ohio's highest-rated title agency. Delivering a modern closing experience powered by Smart technology and human expertise.
