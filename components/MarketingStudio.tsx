@@ -1,9 +1,57 @@
 
-import React from 'react';
-import { MARKETING_PILLARS, MARKETING_PACKAGES } from '../constants';
-import { CheckCircle2, ArrowRight, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { MARKETING_PILLARS, MARKETING_PACKAGES, ALACARTE_OPTIONS } from '../constants';
+import { CheckCircle2, ArrowRight, Star, X, Sparkles } from 'lucide-react';
+
+const AlaCarteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white w-full max-w-2xl max-h-[85vh] rounded-[3rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col">
+        <div className="p-10 border-b border-slate-100 flex items-center justify-between shrink-0">
+          <div>
+            <h3 className="text-2xl font-header font-black text-[#004EA8]">A La Carte Options</h3>
+            <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest mt-1">Custom Growth Solutions</p>
+          </div>
+          <button onClick={onClose} className="p-3 hover:bg-slate-100 rounded-full transition-colors">
+            <X className="w-6 h-6 text-slate-900" />
+          </button>
+        </div>
+        <div className="flex-grow overflow-y-auto p-10 space-y-4 bg-slate-50/30">
+          {ALACARTE_OPTIONS.map((item, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:border-[#64CCC9] transition-all">
+              <div>
+                <h4 className="font-header font-black text-sm text-slate-900 leading-tight">"{item.title}"</h4>
+                <p className="text-[10px] font-header font-bold text-slate-400 uppercase tracking-widest mt-1">{item.description}</p>
+              </div>
+              <div className="text-[#64CCC9] font-header font-black text-xs tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                AVAILABLE
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="p-8 bg-slate-900 shrink-0 text-center">
+          <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest mb-4">Ready to order?</p>
+          <a href="mailto:info@worldclasstitle.com?subject=A La Carte Order Inquiry" className="inline-flex items-center gap-3 px-8 py-4 bg-[#64CCC9] text-white rounded-full font-header font-black text-xs tracking-widest hover:scale-105 transition-transform">
+            CONTACT STUDIO TEAM
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const MarketingStudio: React.FC = () => {
+  const [isAlaCarteOpen, setIsAlaCarteOpen] = useState(false);
+
+  const handleSelectPackage = (packageName: string) => {
+    const subject = `WCT Package Selection: ${packageName}`;
+    const email = "info@worldclasstitle.com";
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+  };
+
   return (
     <section id="marketing" className="py-32 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -23,7 +71,6 @@ const MarketingStudio: React.FC = () => {
           {MARKETING_PILLARS.map((pillar, i) => (
             <div key={i} className="group p-8 rounded-[2.5rem] bg-white border border-slate-100 hover:border-[#64CCC9]/30 hover:shadow-2xl transition-all duration-500">
               <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-[#004EA8] group-hover:bg-[#004EA8] group-hover:text-white transition-all mb-8">
-                {/* Fixed: Added <any> to React.ReactElement to allow className property in cloneElement */}
                 {React.cloneElement(pillar.icon as React.ReactElement<any>, { className: "w-7 h-7" })}
               </div>
               <h3 className="text-lg font-header font-bold text-slate-900 mb-4">{pillar.title}</h3>
@@ -48,7 +95,10 @@ const MarketingStudio: React.FC = () => {
               <p className="text-slate-500 font-subheader mb-10 leading-relaxed">
                 Choose the support level that matches your listing tier. From essential photography to complete social media takeovers.
               </p>
-              <button className="group flex items-center gap-3 text-sm font-header font-bold text-[#004EA8] hover:text-[#003375] transition-colors">
+              <button 
+                onClick={() => setIsAlaCarteOpen(true)}
+                className="group flex items-center gap-3 text-sm font-header font-bold text-[#004EA8] hover:text-[#003375] transition-colors"
+              >
                 View Full Service Menu
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -70,7 +120,10 @@ const MarketingStudio: React.FC = () => {
                       </li>
                     ))}
                   </ul>
-                  <button className={`w-full py-3 rounded-full text-[10px] font-header font-black transition-all ${pkg.dark ? 'bg-white text-slate-900' : 'bg-[#004EA8] text-white hover:bg-[#003375]'}`}>
+                  <button 
+                    onClick={() => handleSelectPackage(pkg.name)}
+                    className={`w-full py-3 rounded-full text-[10px] font-header font-black transition-all ${pkg.dark ? 'bg-white text-slate-900 hover:bg-slate-100' : 'bg-[#004EA8] text-white hover:bg-[#003375]'}`}
+                  >
                     SELECT PACKAGE
                   </button>
                 </div>
@@ -79,6 +132,7 @@ const MarketingStudio: React.FC = () => {
           </div>
         </div>
       </div>
+      <AlaCarteModal isOpen={isAlaCarteOpen} onClose={() => setIsAlaCarteOpen(false)} />
     </section>
   );
 };

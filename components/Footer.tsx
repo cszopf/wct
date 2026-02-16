@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const licensedStates = [
@@ -26,9 +26,22 @@ const Footer: React.FC = () => {
               Ohio's highest-rated title agency. Delivering a modern closing experience powered by Smart technology and human expertise.
             </p>
             <div className="flex gap-4">
-              <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#004EA8] hover:text-white hover:border-[#004EA8] transition-all"><Facebook className="w-4 h-4" /></button>
-              <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#004EA8] hover:text-white hover:border-[#004EA8] transition-all"><Instagram className="w-4 h-4" /></button>
-              <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#004EA8] hover:text-white hover:border-[#004EA8] transition-all"><Linkedin className="w-4 h-4" /></button>
+              <a 
+                href="https://www.facebook.com/worldclasstitle" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#004EA8] hover:text-white hover:border-[#004EA8] transition-all"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a 
+                href="https://www.instagram.com/worldclasstitle" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#004EA8] hover:text-white hover:border-[#004EA8] transition-all"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
@@ -47,11 +60,11 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-header font-black text-xs text-slate-900 uppercase tracking-widest mb-8">Quick Links</h4>
             <ul className="space-y-4 text-sm font-subheader font-semibold text-slate-500">
-              <li><a href="#" className="hover:text-[#004EA8] transition-colors">Order Title</a></li>
-              <li><a href="#" className="hover:text-[#004EA8] transition-colors">Get a Quote</a></li>
-              <li><a href="#" className="hover:text-[#004EA8] transition-colors">Agent Dashboard</a></li>
-              <li><a href="#" className="hover:text-[#004EA8] transition-colors">Education Hub</a></li>
-              <li><a href="#" className="hover:text-[#004EA8] transition-colors">Contact Us</a></li>
+              <li><a href="#closing-guard" className="hover:text-[#004EA8] transition-colors">AI Closing Guard™</a></li>
+              <li><a href="#marketing" className="hover:text-[#004EA8] transition-colors">Marketing Studio</a></li>
+              <li><a href="#tools" className="hover:text-[#004EA8] transition-colors">Growth Dashboard</a></li>
+              <li><a href="#resources" className="hover:text-[#004EA8] transition-colors">Market Insights</a></li>
+              <li><a href="#team" className="hover:text-[#004EA8] transition-colors">Team Directory</a></li>
             </ul>
           </div>
 

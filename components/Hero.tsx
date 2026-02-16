@@ -20,9 +20,10 @@ import {
 
 interface HeroProps {
   role: UserRole;
+  onOpenQuote?: () => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ role }) => {
+const Hero: React.FC<HeroProps> = ({ role, onOpenQuote }) => {
   const content = ROLE_CONTENT[role];
 
   return (
@@ -59,7 +60,10 @@ const Hero: React.FC<HeroProps> = ({ role }) => {
                 {content.primaryCTA}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-              <button className="px-10 py-5 bg-white text-[#004EA8] border-2 border-[#B9D9EB] rounded-full font-header font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-[0.98]">
+              <button 
+                onClick={onOpenQuote}
+                className="px-10 py-5 bg-white text-[#004EA8] border-2 border-[#B9D9EB] rounded-full font-header font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-[0.98]"
+              >
                 Get a Quote
               </button>
             </div>

@@ -48,7 +48,7 @@ export const ROLE_CONTENT = {
     headline: "Your Unfair Advantage in Ohio Real Estate.",
     subheadline: "We built the industry's most advanced Agent Access system. See every deal, win more listings, and close faster with our proprietary tech stack.",
     primaryCTA: "Access Agent Experience",
-    link: "https://rea-buyer.vercel.app/", // Combined view emphasis
+    link: "https://rea-buyer.vercel.app/", 
     experienceLabel: "Agent Access Panel",
     valueProps: [
       { title: "Agent Access Panel", description: "Real-time visibility into every file with the industry's fastest data sync.", icon: <Layers className="w-6 h-6" /> },
@@ -81,6 +81,29 @@ export const ROLE_CONTENT = {
     ]
   }
 };
+
+export const ALACARTE_OPTIONS = [
+  { title: "Open House Flyers", description: "Double Sided, Stipple, 8.5x11 Paper" },
+  { title: "Home Features Flyers", description: "Single Sided, Stipple, 8.5x11 Paper" },
+  { title: "New Listing Door Hanger Design", description: "Custom professional branding" },
+  { title: "Open House Door Hanger Design", description: "High-impact street marketing" },
+  { title: "New Listing Postcards Design", description: "Strategic neighborhood targeting" },
+  { title: "Just Sold Postcard Design", description: "Celebrate your recent victory" },
+  { title: "25 Listing Brochures", description: "4 Pages, 1 Stipple Sheet" },
+  { title: "Dusk Photo Edits", description: "Professional twilight transformation" },
+  { title: "Community Photos", description: "Showcase the neighborhood lifestyle" },
+  { title: "3D Matterport Tour", description: "Fully immersive digital walkthrough" },
+  { title: "3D Zillow Tour", description: "Optimize your Zillow ranking" },
+  { title: "Content Creation Broker Open (CCBO)", description: "Event-based content marketing" },
+  { title: "Virtual Staging", description: "Per-room digital furniture placement" },
+  { title: "Walk Thru Video", description: "Vertical format / No Drone / Unedited" },
+  { title: "Edited Walk Thru", description: "Horizontal / Edited / Includes Drone" },
+  { title: "Talking Video With Agent", description: "Vertical format personal branding" },
+  { title: "Highly Edited Video", description: "Vertical / Disappearing Agent effect" },
+  { title: "CCBO Added Agents", description: "Collaboration support for events" },
+  { title: "Platinum Booklets", description: "Premium physical marketing (5 Minimum)" },
+  { title: "Seller Guides", description: "Branded guides for your client prep" }
+];
 
 export const MARKETING_PILLARS = [
   {
