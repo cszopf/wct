@@ -1,8 +1,15 @@
 
-import React from 'react';
-import { Smartphone, Home, Shield, Bell } from 'lucide-react';
+import React, { useState } from 'react';
+import { Smartphone, Home, Shield, Bell, AlertCircle } from 'lucide-react';
 
 const SmartOneSection: React.FC = () => {
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleActivate = () => {
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
+
   return (
     <section className="py-24 bg-blue-600 text-white rounded-[4rem] mx-6 mb-24 overflow-hidden relative">
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
@@ -35,9 +42,20 @@ const SmartOneSection: React.FC = () => {
               </div>
             </div>
 
-            <button className="px-10 py-5 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-blue-50 transition-all hover:shadow-xl active:scale-[0.98]">
-              Activate Smart One (Free 90 Days)
-            </button>
+            <div className="relative inline-block">
+              <button 
+                onClick={handleActivate}
+                className="px-10 py-5 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-blue-50 transition-all hover:shadow-xl active:scale-[0.98]"
+              >
+                Activate Smart One (Free 90 Days)
+              </button>
+              {showNotification && (
+                <div className="absolute top-full mt-4 left-0 right-0 bg-slate-900 p-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <AlertCircle className="w-5 h-5 text-[#64CCC9]" />
+                  <p className="text-xs font-bold whitespace-nowrap">Coming Soon to your Dashboard!</p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="relative lg:h-[600px] flex items-center justify-center">

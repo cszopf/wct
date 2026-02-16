@@ -322,8 +322,7 @@ const TeamSection: React.FC = () => {
               <p className="text-slate-500 font-subheader">We're always looking for talented professionals to help us redefine the title industry.</p>
            </div>
            <a 
-            href="https://www.worldclasstitle.com/careers" 
-            target="_blank" 
+            href="mailto:info@worldclasstitle.com?subject=WEBSITE: I'm interested in joining WCT" 
             className="px-8 py-4 bg-white border border-[#B9D9EB] text-[#004EA8] rounded-full font-header font-bold text-xs flex items-center gap-3 hover:bg-[#004EA8] hover:text-white transition-all"
            >
              VIEW OPEN ROLES

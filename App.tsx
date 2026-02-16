@@ -14,6 +14,8 @@ import EducationHub from './components/EducationHub';
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
 import ClosingGuard from './components/ClosingGuard';
+import OrderTitleModal from './components/OrderTitleModal';
+import EarnestMoneyModal from './components/EarnestMoneyModal';
 import { X } from 'lucide-react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
@@ -39,6 +41,8 @@ const App: React.FC = () => {
   const [role, setRole] = useState<UserRole>(UserRole.AGENT);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const [isEarnestOpen, setIsEarnestOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,12 +52,36 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleToolAction = (action: string) => {
+    switch(action) {
+      case 'Order Title':
+        setIsOrderOpen(true);
+        break;
+      case 'Earnest Money':
+        setIsEarnestOpen(true);
+        break;
+      case 'Fraud Tracker':
+        window.open('https://worldclasstitle.com/security', '_blank');
+        break;
+      case 'Schedule Closing':
+        window.open('https://www.worldclasstitle.com/schedule-closing', '_blank');
+        break;
+      case 'Marketing Studio':
+        document.getElementById('marketing')?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'Smart Login':
+        window.open('https://smarttitle.space/', '_blank');
+        break;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header 
         currentRole={role} 
         onRoleChange={setRole} 
         isScrolled={isScrolled} 
+        onOrderClick={() => setIsOrderOpen(true)}
       />
       
       <main>
@@ -69,7 +97,7 @@ const App: React.FC = () => {
         <DynamicValuePanel role={role} />
         
         <div id="tools">
-          <PowerTools />
+          <PowerTools onToolClick={handleToolAction} />
         </div>
 
         <SmartOneSection />
@@ -87,6 +115,8 @@ const App: React.FC = () => {
       
       <Assistant role={role} />
       <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
+      <OrderTitleModal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)} />
+      <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
     </div>
   );
 };

@@ -7,9 +7,10 @@ interface HeaderProps {
   currentRole: UserRole;
   onRoleChange: (role: UserRole) => void;
   isScrolled: boolean;
+  onOrderClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled }) => {
+const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled, onOrderClick }) => {
   const roles = Object.values(UserRole);
   const logoUrl = "https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png?format=1500w";
 
@@ -60,7 +61,10 @@ const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled }
             </div>
           </div>
 
-          <button className="hidden lg:block px-6 py-2.5 bg-[#004EA8] text-white rounded-full text-xs font-header font-bold hover:bg-[#003375] transition-all hover:shadow-lg active:scale-95">
+          <button 
+            onClick={onOrderClick}
+            className="hidden lg:block px-6 py-2.5 bg-[#004EA8] text-white rounded-full text-xs font-header font-bold hover:bg-[#003375] transition-all hover:shadow-lg active:scale-95"
+          >
             Order Title
           </button>
           

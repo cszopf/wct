@@ -10,11 +10,15 @@ import {
   Loader2,
   FileText,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  X,
+  Plus,
+  Download,
+  Search
 } from 'lucide-react';
 
 const ClosingGuard: React.FC = () => {
-  const [contractFile, setContractFile] = useState<File | null>(null);
+  const [contractFiles, setContractFiles] = useState<File[]>([]);
   const [disclosureFile, setDisclosureFile] = useState<File | null>(null);
   const [comparisonResult, setComparisonResult] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,9 +40,20 @@ const ClosingGuard: React.FC = () => {
     });
   };
 
+  const handleContractFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const newFiles = Array.from(e.target.files);
+      setContractFiles(prev => [...prev, ...newFiles]);
+    }
+  };
+
+  const removeContractFile = (index: number) => {
+    setContractFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
   const handleCompare = async () => {
-    if (!contractFile || !disclosureFile) {
-      setError("Please upload both the Purchase Contract and the Closing Disclosure.");
+    if (contractFiles.length === 0 || !disclosureFile) {
+      setError("Please upload at least one Purchase Contract/Addendum and the Closing Disclosure.");
       return;
     }
 
@@ -48,7 +63,8 @@ const ClosingGuard: React.FC = () => {
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const contractPart = await fileToPart(contractFile);
+      
+      const contractParts = await Promise.all(contractFiles.map(f => fileToPart(f)));
       const disclosurePart = await fileToPart(disclosureFile);
 
       const response = await ai.models.generateContent({
@@ -56,31 +72,33 @@ const ClosingGuard: React.FC = () => {
         contents: [
           {
             parts: [
-              contractPart as any,
+              ...contractParts as any[],
               disclosurePart as any,
-              { text: `You are a professional real estate title auditor. 
-              Analyze these two documents: 
-              1. The Purchase Contract
+              { text: `You are the World Class Title (WCT) Smart Audit Engine. 
+              Analyze the provided documents: 
+              1. The Purchase Contract and all its Addendums (Multiple files may be provided)
               2. The Closing Disclosure (CD)
               
-              Identify if they are aligned or if there are discrepancies in:
-              - Sale Price
+              Task: Perform a comprehensive WCT Smart Audit by cross-referencing the Purchase Contract and all Addendums with the Closing Disclosure.
+              
+              Identify if data points are "SYNCHRONIZED" or if there are "GROWTH PROTECTION ALERTS" (discrepancies) in:
+              - Sale Price (accounting for all price adjustments in addendums)
               - Earnest Money / Deposit amounts
-              - Seller Credits
-              - Prorated taxes (if visible)
-              - Commissions (if visible)
+              - Seller Credits (specifically looking for repair or closing cost credits mentioned in any addendum)
+              - Prorated taxes and Commissions
               
-              Format your response as a professional audit report with:
-              - A summary "Status" (Aligned or Action Required)
-              - A detailed breakdown of each category
-              - Specific callouts for any differences found.
+              Report Formatting Requirements (WCT Elite Branded Style):
+              1. **WCT SMART ANALYSIS SUMMARY**: A high-level status (e.g., "STATUS: FULLY SYNCHRONIZED" or "STATUS: ACTION REQUIRED").
+              2. **GROWTH PARTNER DATA BREAKDOWN**: A professional comparison of Sale Price, Credits, and Deposits.
+              3. **GROWTH PROTECTION ALERTS**: Explicit callouts for any differences found, clearly referencing which document or addendum the conflicting information came from.
+              4. **WCT AUDIT CONCLUSION**: A professional, growth-focused summary statement.
               
-              If the documents are not clear, state what might be missing.` }
+              Tone: Professional, elite, growth-focused, and highly precise. Use WCT-specific terminology where appropriate to reflect our identity as a modern growth partner.` }
             ]
           }
         ],
         config: {
-          temperature: 0.2, // Keep it precise for auditing
+          temperature: 0.1,
         }
       });
 
@@ -93,6 +111,57 @@ const ClosingGuard: React.FC = () => {
     }
   };
 
+  const handleDownloadReport = () => {
+    if (!comparisonResult) return;
+
+    const logoUrl = "https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png?format=1500w";
+    const timestamp = new Date().toLocaleString();
+    const disclaimer = "LEGAL DISCLAIMER: This AI-generated audit report is provided for informational purposes only and must be reviewed by a licensed World Class Title agent before closing. World Class Title makes no warranties, express or implied, as to the accuracy, completeness, or reliability of this automated analysis. Final figures are subject to verification and adjustment by the title agency and lender.";
+
+    const htmlContent = `
+      <html>
+        <head>
+          <title>WCT Closing Guard™ Smart Audit</title>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+            body { font-family: 'Nunito Sans', sans-serif; padding: 60px; color: #1e293b; line-height: 1.6; max-width: 900px; margin: 0 auto; background: #fff; }
+            .header { text-align: center; border-bottom: 3px solid #004EA8; padding-bottom: 30px; margin-bottom: 40px; }
+            .logo { max-height: 70px; margin-bottom: 15px; }
+            .title { color: #004EA8; font-size: 28px; font-weight: 800; margin: 0; text-transform: uppercase; letter-spacing: 0.05em; }
+            .meta { font-size: 11px; color: #64748b; text-transform: uppercase; margin-top: 8px; font-weight: 700; letter-spacing: 0.1em; }
+            .content { background: #fdfdfd; padding: 40px; border-radius: 24px; border: 1px solid #f1f5f9; white-space: pre-wrap; font-size: 15px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); color: #334155; }
+            .content strong { color: #004EA8; text-transform: uppercase; letter-spacing: 0.025em; }
+            .disclaimer { margin-top: 50px; padding: 25px; border: 2px solid #fee2e2; background: #fef2f2; border-radius: 16px; font-size: 12px; color: #991b1b; font-weight: 700; line-height: 1.5; }
+            .footer { margin-top: 50px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 30px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <img src="${logoUrl}" class="logo" />
+            <h1 class="title">Closing Guard™ Smart Audit Report</h1>
+            <div class="meta">WCT Intelligence Engine v3.1 | Generated: ${timestamp}</div>
+          </div>
+          <div class="content">${comparisonResult.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>
+          <div class="disclaimer">${disclaimer}</div>
+          <div class="footer">
+            World Class Title | Growth Partner Experience<br/>
+            5040 Pine Creek Drive, Westerville, OH 43081 | 614-882-8022
+          </div>
+        </body>
+      </html>
+    `;
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `WCT-Smart-Audit-Report-${Date.now()}.html`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <section id="closing-guard" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -103,10 +172,10 @@ const ClosingGuard: React.FC = () => {
               <span className="text-[10px] font-header font-black uppercase tracking-widest">WCT Proprietary Tool</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-header font-extrabold text-[#004EA8] mb-6 leading-tight">
-              Closing Guard™ <br/><span className="text-[#64CCC9]">AI Audit</span>
+              Closing Guard™ <br/><span className="text-[#64CCC9]">Smart Audit</span>
             </h2>
             <p className="text-xl text-slate-500 font-subheader leading-relaxed mb-8">
-              Don't let errors derail your closing. Our proprietary AI tool compares your Purchase Contract with your Closing Disclosure to ensure every dollar is accounted for.
+              Experience the power of proactive closing. Our Smart Audit Engine cross-references your entire file history to ensure total financial alignment.
             </p>
             
             <div className="space-y-6">
@@ -115,17 +184,17 @@ const ClosingGuard: React.FC = () => {
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Verify Sale Price</h4>
-                  <p className="text-sm text-slate-500">Instant confirmation that the agreed price matches the final disclosure.</p>
+                  <h4 className="font-bold text-slate-900">Branded Analysis</h4>
+                  <p className="text-sm text-slate-500">Every report is tailored to WCT's elite standards of transaction precision.</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center text-[#004EA8] shrink-0">
-                  <CheckCircle2 className="w-5 h-5" />
+                  <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Credit Alignment</h4>
-                  <p className="text-sm text-slate-500">We ensure seller credits and repair offsets are correctly applied.</p>
+                  <h4 className="font-bold text-slate-900">Growth Protection</h4>
+                  <p className="text-sm text-slate-500">Automated discrepancy alerts keep your commissions and credits safe.</p>
                 </div>
               </div>
             </div>
@@ -133,29 +202,39 @@ const ClosingGuard: React.FC = () => {
 
           <div className="lg:w-2/3 bg-slate-50 rounded-[3rem] p-8 lg:p-12 border border-slate-100 shadow-inner">
             <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {/* Purchase Contract Upload */}
-              <div className={`p-8 rounded-[2rem] border-2 border-dashed transition-all ${contractFile ? 'bg-white border-teal-200' : 'bg-white/50 border-slate-200 hover:border-[#004EA8]'}`}>
+              <div className={`p-8 rounded-[2rem] border-2 border-dashed transition-all ${contractFiles.length > 0 ? 'bg-white border-teal-200' : 'bg-white/50 border-slate-200 hover:border-[#004EA8]'}`}>
                 <div className="flex flex-col items-center text-center">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${contractFile ? 'bg-teal-50 text-teal-600' : 'bg-slate-100 text-slate-400'}`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${contractFiles.length > 0 ? 'bg-teal-50 text-teal-600' : 'bg-slate-100 text-slate-400'}`}>
                     <FileText className="w-8 h-8" />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">Purchase Contract</h3>
-                  <p className="text-xs text-slate-500 mb-6">Upload original contract image or PDF</p>
+                  <h3 className="font-bold text-slate-900 mb-2">Contracts & Addendums</h3>
+                  <p className="text-xs text-slate-500 mb-6">Upload contract plus any price or repair addendums</p>
                   
-                  <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest">
-                    {contractFile ? 'Change File' : 'Select File'}
+                  <div className="w-full space-y-2 mb-6">
+                    {contractFiles.map((file, idx) => (
+                      <div key={idx} className="flex items-center justify-between px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                        <span className="text-[10px] font-bold text-slate-600 truncate max-w-[150px]">{file.name}</span>
+                        <button onClick={() => removeContractFile(idx)} className="p-1 text-slate-400 hover:text-red-500 transition-colors">
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest flex items-center gap-2">
+                    <Plus className="w-3 h-3" />
+                    {contractFiles.length > 0 ? 'Add More Docs' : 'Select Files'}
                     <input 
                       type="file" 
                       className="hidden" 
+                      multiple
                       accept="image/*,application/pdf"
-                      onChange={(e) => setContractFile(e.target.files?.[0] || null)}
+                      onChange={handleContractFileChange}
                     />
                   </label>
-                  {contractFile && <p className="mt-3 text-[10px] text-teal-600 font-bold truncate max-w-full">{contractFile.name}</p>}
                 </div>
               </div>
 
-              {/* Closing Disclosure Upload */}
               <div className={`p-8 rounded-[2rem] border-2 border-dashed transition-all ${disclosureFile ? 'bg-white border-teal-200' : 'bg-white/50 border-slate-200 hover:border-[#004EA8]'}`}>
                 <div className="flex flex-col items-center text-center">
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${disclosureFile ? 'bg-teal-50 text-teal-600' : 'bg-slate-100 text-slate-400'}`}>
@@ -164,6 +243,15 @@ const ClosingGuard: React.FC = () => {
                   <h3 className="font-bold text-slate-900 mb-2">Closing Disclosure</h3>
                   <p className="text-xs text-slate-500 mb-6">Upload latest CD draft</p>
                   
+                  {disclosureFile && (
+                     <div className="w-full px-4 py-2 bg-teal-50 rounded-xl border border-teal-100 mb-6 flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-teal-700 truncate max-w-[180px]">{disclosureFile.name}</span>
+                        <button onClick={() => setDisclosureFile(null)} className="p-1 text-teal-400 hover:text-red-500">
+                          <X className="w-3 h-3" />
+                        </button>
+                     </div>
+                  )}
+
                   <label className="cursor-pointer px-6 py-3 bg-white border border-slate-200 rounded-full text-[10px] font-header font-black hover:bg-slate-50 transition-all uppercase tracking-widest">
                     {disclosureFile ? 'Change File' : 'Select File'}
                     <input 
@@ -173,7 +261,6 @@ const ClosingGuard: React.FC = () => {
                       onChange={(e) => setDisclosureFile(e.target.files?.[0] || null)}
                     />
                   </label>
-                  {disclosureFile && <p className="mt-3 text-[10px] text-teal-600 font-bold truncate max-w-full">{disclosureFile.name}</p>}
                 </div>
               </div>
             </div>
@@ -181,19 +268,19 @@ const ClosingGuard: React.FC = () => {
             <div className="flex flex-col items-center">
               <button
                 onClick={handleCompare}
-                disabled={!contractFile || !disclosureFile || isLoading}
+                disabled={contractFiles.length === 0 || !disclosureFile || isLoading}
                 className="group relative px-12 py-6 bg-[#004EA8] text-white rounded-full font-header font-black text-sm uppercase tracking-[0.2em] shadow-2xl hover:bg-[#003375] disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95"
               >
                 <div className="flex items-center gap-4">
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Analyzing Documents...</span>
+                      <span>Running Smart Audit...</span>
                     </>
                   ) : (
                     <>
                       <Sparkles className="w-5 h-5" />
-                      <span>Run AI Audit</span>
+                      <span>Initiate WCT Smart Audit</span>
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                     </>
                   )}
@@ -208,28 +295,43 @@ const ClosingGuard: React.FC = () => {
               )}
 
               {comparisonResult && (
-                <div className="mt-12 w-full p-8 lg:p-12 bg-white rounded-[2.5rem] shadow-2xl border border-teal-100 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                <div className="mt-12 w-full p-8 lg:p-12 bg-white rounded-[2.5rem] shadow-2xl border border-[#004EA8]/10 animate-in fade-in slide-in-from-bottom-8 duration-700">
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 bg-teal-500 rounded-2xl flex items-center justify-center text-white">
+                    <div className="w-12 h-12 bg-[#004EA8] rounded-2xl flex items-center justify-center text-white shadow-[0_8px_16px_rgba(0,78,168,0.2)]">
                       <ShieldCheck className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-header font-extrabold text-[#004EA8]">Audit Results</h4>
-                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">WCT Intelligence Engine</p>
+                      <h4 className="text-xl font-header font-extrabold text-[#004EA8]">Official WCT Audit Results</h4>
+                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest leading-none mt-1">Smart Engine Analysis v3.1</p>
                     </div>
                   </div>
                   
-                  <div className="prose prose-slate max-w-none">
+                  <div className="prose prose-slate max-w-none mb-10">
                     <div className="text-slate-600 font-subheader leading-relaxed whitespace-pre-wrap">
                       {comparisonResult}
                     </div>
                   </div>
+
+                  <div className="p-6 bg-red-50 border border-red-100 rounded-2xl mb-10">
+                    <div className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                      <p className="text-[10px] leading-relaxed font-bold text-red-700 uppercase tracking-wider">
+                        LEGAL DISCLAIMER: This AI-generated audit report is provided for informational purposes only and must be reviewed by a licensed World Class Title agent before closing. World Class Title makes no warranties, express or implied, as to accuracy. Final figures are subject to verification and adjustment.
+                      </p>
+                    </div>
+                  </div>
                   
-                  <div className="mt-12 pt-8 border-t border-slate-100 flex justify-between items-center">
-                    <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">Generated by Gemini Pro</p>
-                    <button className="text-xs font-header font-black text-[#004EA8] hover:text-[#64CCC9] transition-colors flex items-center gap-2">
-                      DOWNLOAD REPORT
-                      <ArrowRight className="w-4 h-4" />
+                  <div className="pt-8 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-3 order-2 sm:order-1">
+                      <div className="w-2 h-2 bg-[#64CCC9] rounded-full animate-pulse" />
+                      <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">Audit Engine Synchronized</p>
+                    </div>
+                    <button 
+                      onClick={handleDownloadReport}
+                      className="px-8 py-3 bg-[#004EA8] text-white rounded-full text-xs font-header font-black uppercase tracking-widest flex items-center gap-3 hover:bg-[#003375] transition-all hover:shadow-xl order-1 sm:order-2 shadow-md active:scale-95"
+                    >
+                      <Download className="w-4 h-4" />
+                      Download WCT Branded Report
                     </button>
                   </div>
                 </div>
