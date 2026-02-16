@@ -37,30 +37,23 @@ const Assistant: React.FC<AssistantProps> = ({ role }) => {
     setIsLoading(true);
 
     try {
+      // Re-initialize to ensure it uses current environment key
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `The user is on the World Class Title (WCT) website as a ${role}. 
-        WCT is a modern title agency and "Growth Partner" for agents. 
-        Contact Info: Phone 614-882-8022, Email info@worldclasstitle.com, Address 5040 Pine Creek Drive, Westerville, OH 43081.
-        Brand Colors: Blue (#004EA8) and Teal (#64CCC9). 
-        Key Services: Listing Media (photography/drone), Social Amplification, Design Studio, and elite closings.
-        Licensed States: WCT is licensed to operate in Ohio, Michigan, Pennsylvania, New Jersey, Florida, Kentucky, Indiana, Virginia, and Tennessee.
-        
-        Persona: Expert, Growth-focused, Professional, Tech-forward. 
-        Focus on how WCT helps agents win listings and helps buyers/sellers feel confident.
-        
+        WCT is a modern title agency and "Growth Partner".
         User Question: ${userMessage}`,
         config: {
-          systemInstruction: "You are the WCT Growth Assistant. You help users understand that WCT is more than just a title company—they are a marketing and revenue-growth partner. Answer with high-energy, professional confidence. Mention licensed states if asked about service area.",
+          systemInstruction: "You are the WCT Growth Assistant. Answer with professional confidence and high-energy. Keep responses concise.",
         }
       });
 
-      const assistantText = response.text || "I'm sorry, I couldn't process that. Please try again or call our office at 614-882-8022.";
+      const assistantText = response.text || "I'm sorry, I couldn't process that. Please try again or call 614-882-8022.";
       setMessages(prev => [...prev, { role: 'assistant', text: assistantText }]);
     } catch (error) {
       console.error('Error calling Gemini:', error);
-      setMessages(prev => [...prev, { role: 'assistant', text: "I'm having a quick technical glitch. Can I help you with something else?" }]);
+      setMessages(prev => [...prev, { role: 'assistant', text: "Secure access check required. Please ensure your project key is connected." }]);
     } finally {
       setIsLoading(false);
     }
@@ -121,7 +114,7 @@ const Assistant: React.FC<AssistantProps> = ({ role }) => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="How can WCT help you win?"
-                className="w-full pl-5 pr-14 py-4 bg-slate-50 border border-slate-100 rounded-full text-sm font-header font-bold focus:outline-none focus:ring-2 focus:ring-[#64CCC9]/20 focus:border-[#64CCC9] transition-all"
+                className="w-full pl-5 pr-14 py-4 bg-slate-50 border border-slate-100 rounded-full text-sm font-header font-bold focus:outline-none focus:ring-2 focus:ring-[#64CCC9]/20 transition-all"
               />
               <button 
                 onClick={handleSend}
