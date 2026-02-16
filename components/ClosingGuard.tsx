@@ -13,8 +13,7 @@ import {
   Sparkles,
   X,
   Plus,
-  Download,
-  Search
+  Download
 } from 'lucide-react';
 
 const ClosingGuard: React.FC = () => {
@@ -25,17 +24,23 @@ const ClosingGuard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fileToPart = async (file: File) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64Data = (reader.result as string).split(',')[1];
-        resolve({
-          inlineData: {
-            data: base64Data,
-            mimeType: file.type,
-          },
-        });
+        try {
+          const base64Data = (reader.result as string).split(',')[1];
+          if (!base64Data) throw new Error("Could not extract base64 data");
+          resolve({
+            inlineData: {
+              data: base64Data,
+              mimeType: file.type || 'application/pdf',
+            },
+          });
+        } catch (e) {
+          reject(e);
+        }
       };
+      reader.onerror = reject;
       reader.readAsDataURL(file);
     });
   };
@@ -44,6 +49,7 @@ const ClosingGuard: React.FC = () => {
     if (e.target.files) {
       const newFiles = Array.from(e.target.files);
       setContractFiles(prev => [...prev, ...newFiles]);
+      setError(null);
     }
   };
 
@@ -54,6 +60,11 @@ const ClosingGuard: React.FC = () => {
   const handleCompare = async () => {
     if (contractFiles.length === 0 || !disclosureFile) {
       setError("Please upload at least one Purchase Contract/Addendum and the Closing Disclosure.");
+      return;
+    }
+
+    if (!process.env.API_KEY) {
+      setError("Service configuration error: API Key is missing. Please contact support.");
       return;
     }
 
@@ -74,38 +85,52 @@ const ClosingGuard: React.FC = () => {
             parts: [
               ...contractParts as any[],
               disclosurePart as any,
-              { text: `You are the World Class Title (WCT) Smart Audit Engine. 
-              Analyze the provided documents: 
-              1. The Purchase Contract and all its Addendums (Multiple files may be provided)
-              2. The Closing Disclosure (CD)
-              
-              Task: Perform a comprehensive WCT Smart Audit by cross-referencing the Purchase Contract and all Addendums with the Closing Disclosure.
-              
-              Identify if data points are "SYNCHRONIZED" or if there are "GROWTH PROTECTION ALERTS" (discrepancies) in:
-              - Sale Price (accounting for all price adjustments in addendums)
-              - Earnest Money / Deposit amounts
-              - Seller Credits (specifically looking for repair or closing cost credits mentioned in any addendum)
-              - Prorated taxes and Commissions
-              
-              Report Formatting Requirements (WCT Elite Branded Style):
-              1. **WCT SMART ANALYSIS SUMMARY**: A high-level status (e.g., "STATUS: FULLY SYNCHRONIZED" or "STATUS: ACTION REQUIRED").
-              2. **GROWTH PARTNER DATA BREAKDOWN**: A professional comparison of Sale Price, Credits, and Deposits.
-              3. **GROWTH PROTECTION ALERTS**: Explicit callouts for any differences found, clearly referencing which document or addendum the conflicting information came from.
-              4. **WCT AUDIT CONCLUSION**: A professional, growth-focused summary statement.
-              
-              Tone: Professional, elite, growth-focused, and highly precise. Use WCT-specific terminology where appropriate to reflect our identity as a modern growth partner.` }
+              { text: "Initiate WCT Smart Audit on the provided documents. Identify if the data is synchronized across the contract, all addendums, and the final disclosure." }
             ]
           }
         ],
         config: {
+          systemInstruction: `You are the World Class Title (WCT) Smart Audit Engine. 
+          Analyze the provided documents: 
+          1. The Purchase Contract and all its Addendums (Multiple files may be provided)
+          2. The Closing Disclosure (CD)
+          
+          Task: Perform a comprehensive WCT Smart Audit by cross-referencing the Purchase Contract and all Addendums with the Closing Disclosure.
+          
+          Identify if data points are "SYNCHRONIZED" or if there are "GROWTH PROTECTION ALERTS" (discrepancies) in:
+          - Sale Price (accounting for all price adjustments in addendums)
+          - Earnest Money / Deposit amounts
+          - Seller Credits (specifically looking for repair or closing cost credits mentioned in any addendum)
+          - Prorated taxes and Commissions
+          
+          Report Formatting Requirements (WCT Elite Branded Style):
+          1. **WCT SMART ANALYSIS SUMMARY**: A high-level status (e.g., "STATUS: FULLY SYNCHRONIZED" or "STATUS: ACTION REQUIRED").
+          2. **GROWTH PARTNER DATA BREAKDOWN**: A professional comparison of Sale Price, Credits, and Deposits.
+          3. **GROWTH PROTECTION ALERTS**: Explicit callouts for any differences found, clearly referencing which document or addendum the conflicting information came from.
+          4. **WCT AUDIT CONCLUSION**: A professional, growth-focused summary statement.
+          
+          Tone: Professional, elite, growth-focused, and highly precise. Use WCT-specific terminology where appropriate to reflect our identity as a modern growth partner.`,
           temperature: 0.1,
         }
       });
 
-      setComparisonResult(response.text || "Could not generate audit report.");
-    } catch (err) {
-      console.error("Comparison Error:", err);
-      setError("An error occurred during the audit. Please ensure you've uploaded clear images of the documents.");
+      if (!response.text) {
+        throw new Error("The AI was unable to process the text in these documents. Please ensure the images/PDFs are clear and legible.");
+      }
+
+      setComparisonResult(response.text);
+    } catch (err: any) {
+      console.error("Comparison Error Details:", err);
+      // More specific error handling for common API issues
+      if (err.message?.includes('403') || err.message?.includes('API_KEY')) {
+        setError("Configuration error: The audit service is currently unavailable. Please verify API credentials.");
+      } else if (err.message?.includes('Too Many Requests') || err.message?.includes('429')) {
+        setError("The audit service is currently busy. Please wait a moment and try again.");
+      } else if (err.message?.includes('Request payload size exceeds the limit')) {
+        setError("Total file size is too large. Please try uploading fewer or smaller files.");
+      } else {
+        setError(err.message || "An unexpected error occurred during the audit. Please try again with clear document images.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -288,9 +313,9 @@ const ClosingGuard: React.FC = () => {
               </button>
 
               {error && (
-                <div className="mt-8 flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100">
-                  <AlertTriangle className="w-5 h-5" />
-                  <p className="text-sm font-bold">{error}</p>
+                <div className="mt-8 flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <AlertTriangle className="w-5 h-5 shrink-0" />
+                  <p className="text-xs font-bold leading-tight">{error}</p>
                 </div>
               )}
 
