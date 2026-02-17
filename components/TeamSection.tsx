@@ -222,20 +222,34 @@ const TeamSection: React.FC = () => {
   const categories = ["Funding Team", "Title Team", "Closing Team", "Sales Team", "Marketing Team", "Office Admin Team", "General Counsel"];
 
   return (
-    <section id="team" className="py-24 bg-white">
+    <section id="team" className="py-20 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 lg:mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#004EA8]/10 text-[#004EA8] rounded-full mb-6">
             <span className="text-[10px] font-header font-black uppercase tracking-[0.2em]">Our People</span>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-header font-extrabold text-[#004EA8] mb-6">The World Class Team</h2>
-          <p className="text-xl text-slate-500 font-subheader max-w-2xl mx-auto leading-relaxed">
+          <h2 className="text-3xl lg:text-5xl font-header font-extrabold text-[#004EA8] mb-6">The World Class Team</h2>
+          <p className="text-base lg:text-xl text-slate-500 font-subheader max-w-2xl mx-auto leading-relaxed px-4 lg:px-0">
             A collective of industry experts dedicated to transforming the closing experience through technology and high-touch service.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-3">
+        {/* Mobile Horizontal Category Nav */}
+        <div className="lg:hidden mb-12 -mx-6 px-6 overflow-x-auto whitespace-nowrap scrollbar-hide flex gap-3 pb-4">
+          {categories.map(cat => (
+            <a 
+              key={cat} 
+              href={`#${cat.toLowerCase().replace(/\s+/g, '-')}`}
+              className="px-5 py-2.5 bg-slate-50 border border-slate-100 rounded-full text-[10px] font-header font-black text-slate-500 uppercase tracking-widest hover:border-[#004EA8] hover:text-[#004EA8] transition-all shrink-0 active:scale-95"
+            >
+              {cat}
+            </a>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
+          {/* Desktop Sticky Sidebar */}
+          <div className="hidden lg:col-span-3 lg:block">
              <div className="sticky top-32 space-y-4">
                 <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest mb-6">Departments</p>
                 {categories.map(cat => (
@@ -257,32 +271,32 @@ const TeamSection: React.FC = () => {
              </div>
           </div>
 
-          <div className="lg:col-span-9 space-y-24">
+          <div className="lg:col-span-9 space-y-16 lg:space-y-24">
             {categories.map((cat) => (
-              <div key={cat} id={cat.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-32">
-                <div className="flex items-center gap-6 mb-12">
-                  <h3 className="text-lg font-header font-black text-[#004EA8] uppercase tracking-[0.2em] whitespace-nowrap">{cat}</h3>
+              <div key={cat} id={cat.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-24 lg:scroll-mt-32">
+                <div className="flex items-center gap-4 lg:gap-6 mb-8 lg:mb-12">
+                  <h3 className="text-sm lg:text-lg font-header font-black text-[#004EA8] uppercase tracking-[0.2em] whitespace-nowrap">{cat}</h3>
                   <div className="h-px bg-[#B9D9EB]/30 flex-grow" />
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-x-12 gap-y-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-10 lg:gap-y-12">
                   {team.filter(m => m.category === cat).map((member, i) => (
                     <div key={i} className="group transition-all duration-500">
-                      <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-5 lg:gap-6">
                         {member.img && (
-                          <div className="w-24 h-24 rounded-full overflow-hidden shrink-0 shadow-lg border-4 border-white ring-1 ring-slate-100 group-hover:ring-[#64CCC9] transition-all">
+                          <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden shrink-0 shadow-lg border-2 lg:border-4 border-white ring-1 ring-slate-100 group-hover:ring-[#64CCC9] transition-all">
                             <img src={member.img} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                           </div>
                         )}
-                        <div className="flex-grow">
-                          <h4 className="text-lg font-header font-black text-slate-900 mb-0.5 group-hover:text-[#004EA8] transition-colors leading-tight">{member.name}</h4>
-                          <p className="text-[10px] font-header font-bold text-[#64CCC9] uppercase tracking-widest mb-3 leading-none">{member.role}</p>
+                        <div className="flex-grow min-w-0">
+                          <h4 className="text-base lg:text-lg font-header font-black text-slate-900 mb-0.5 group-hover:text-[#004EA8] transition-colors leading-tight truncate">{member.name}</h4>
+                          <p className="text-[9px] lg:text-[10px] font-header font-bold text-[#64CCC9] uppercase tracking-widest mb-3 leading-none truncate">{member.role}</p>
                           
                           <div className="flex gap-2">
                             {member.email && (
                               <a 
                                 href={`mailto:${member.email}`}
-                                className="p-1.5 bg-slate-50 text-slate-400 rounded-md hover:bg-[#004EA8] hover:text-white transition-all"
+                                className="p-1.5 lg:p-2 bg-slate-50 text-slate-400 rounded-lg hover:bg-[#004EA8] hover:text-white transition-all"
                                 title="Send Email"
                               >
                                 <Mail className="w-3.5 h-3.5" />
@@ -291,8 +305,7 @@ const TeamSection: React.FC = () => {
                             {member.phone && (
                               <button 
                                 onClick={() => togglePhone(member.name)}
-                                className={`p-1.5 rounded-md transition-all ${revealedPhones[member.name] ? 'bg-[#64CCC9] text-white' : 'bg-slate-50 text-slate-400 hover:bg-[#004EA8] hover:text-white'}`}
-                                title={revealedPhones[member.name] ? "Hide Number" : "Reveal Phone Number"}
+                                className={`p-1.5 lg:p-2 rounded-lg transition-all ${revealedPhones[member.name] ? 'bg-[#64CCC9] text-white' : 'bg-slate-50 text-slate-400 hover:bg-[#004EA8] hover:text-white'}`}
                               >
                                 {revealedPhones[member.name] ? <Phone className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                               </button>
@@ -300,8 +313,8 @@ const TeamSection: React.FC = () => {
                           </div>
                           
                           {revealedPhones[member.name] && member.phone && (
-                            <div className="mt-1 animate-in slide-in-from-top-1 duration-300">
-                              <a href={`tel:${member.phone}`} className="text-[11px] font-header font-black text-[#004EA8] hover:underline">
+                            <div className="mt-2 animate-in slide-in-from-top-1 duration-300">
+                              <a href={`tel:${member.phone}`} className="text-[10px] lg:text-[11px] font-header font-black text-[#004EA8] hover:underline">
                                 {member.phone}
                               </a>
                             </div>
@@ -316,14 +329,14 @@ const TeamSection: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-32 p-12 bg-slate-50 rounded-[3rem] border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="mt-20 lg:mt-32 p-8 lg:p-12 bg-slate-50 rounded-[2rem] lg:rounded-[3rem] border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
            <div className="max-w-xl">
-              <h3 className="text-2xl font-header font-extrabold text-[#004EA8] mb-2">Want to join the team?</h3>
-              <p className="text-slate-500 font-subheader">We're always looking for talented professionals to help us redefine the title industry.</p>
+              <h3 className="text-xl lg:text-2xl font-header font-extrabold text-[#004EA8] mb-2">Want to join the team?</h3>
+              <p className="text-sm lg:text-base text-slate-500 font-subheader">We're always looking for talented professionals to help us redefine the title industry.</p>
            </div>
            <a 
             href="mailto:info@worldclasstitle.com?subject=WEBSITE: I'm interested in joining WCT" 
-            className="px-8 py-4 bg-white border border-[#B9D9EB] text-[#004EA8] rounded-full font-header font-bold text-xs flex items-center gap-3 hover:bg-[#004EA8] hover:text-white transition-all"
+            className="w-full md:w-auto px-8 py-4 bg-white border border-[#B9D9EB] text-[#004EA8] rounded-full font-header font-bold text-xs flex items-center justify-center gap-3 hover:bg-[#004EA8] hover:text-white transition-all"
            >
              VIEW OPEN ROLES
              <ExternalLink className="w-4 h-4" />

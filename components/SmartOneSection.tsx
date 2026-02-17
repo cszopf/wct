@@ -14,18 +14,18 @@ const SmartOneSection: React.FC = () => {
     <section className="py-24 bg-blue-600 text-white rounded-[4rem] mx-6 mb-24 overflow-hidden relative">
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
       <div className="max-w-7xl mx-auto px-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
-          <div>
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full mb-6">
               <Smartphone className="w-4 h-4" />
               <span className="text-xs font-bold uppercase tracking-widest">WCT Smart One™</span>
             </div>
-            <h2 className="text-5xl font-bold mb-8 leading-tight">Your Home. Managed. Protected. Connected.</h2>
-            <p className="text-xl text-blue-100 mb-10 leading-relaxed">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-8 leading-tight">Your Home. Managed. Protected. Connected.</h2>
+            <p className="text-lg lg:text-xl text-blue-100 mb-10 leading-relaxed max-w-xl">
               Our service doesn't end at the closing table. Smart One is your lifelong homeownership dashboard, providing protection alerts and concierge services.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-8 mb-12">
+            <div className="grid sm:grid-cols-2 gap-8 mb-12 w-full max-w-2xl text-left">
               <div className="flex items-start gap-4">
                 <Shield className="w-6 h-6 text-blue-200 shrink-0" />
                 <div>
@@ -42,10 +42,10 @@ const SmartOneSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="relative inline-block">
+            <div className="relative inline-block w-full sm:w-auto">
               <button 
                 onClick={handleActivate}
-                className="px-10 py-5 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-blue-50 transition-all hover:shadow-xl active:scale-[0.98]"
+                className="w-full sm:w-auto px-10 py-5 bg-white text-blue-600 rounded-full font-bold text-lg hover:bg-blue-50 transition-all hover:shadow-xl active:scale-[0.98]"
               >
                 Activate Smart One (Free 90 Days)
               </button>
@@ -58,9 +58,9 @@ const SmartOneSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative lg:h-[600px] flex items-center justify-center">
+          <div className="relative lg:h-[600px] flex items-center justify-center mt-12 lg:mt-0">
              {/* Mock Phone App UI */}
-             <div className="bg-slate-900 w-[300px] h-[600px] rounded-[3rem] border-8 border-slate-800 shadow-2xl relative overflow-hidden flex flex-col">
+             <div className="bg-slate-900 w-[260px] sm:w-[300px] h-[520px] sm:h-[600px] rounded-[3rem] border-8 border-slate-800 shadow-2xl relative overflow-hidden flex flex-col scale-90 sm:scale-100">
                 <div className="h-6 w-1/3 bg-slate-800 rounded-b-2xl mx-auto mb-4" />
                 <div className="px-6 flex-grow">
                    <div className="h-8 w-1/2 bg-slate-800 rounded-full mb-8" />
@@ -78,8 +78,8 @@ const SmartOneSection: React.FC = () => {
                 </div>
              </div>
              
-             {/* Floating Achievement */}
-             <div className="absolute top-20 right-0 bg-white p-4 rounded-2xl shadow-2xl text-slate-900 flex items-center gap-3">
+             {/* Floating Achievement - Hidden on very small screens */}
+             <div className="hidden sm:flex absolute top-20 right-0 bg-white p-4 rounded-2xl shadow-2xl text-slate-900 items-center gap-3">
                 <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
                    <Shield className="w-6 h-6 text-white" />
                 </div>

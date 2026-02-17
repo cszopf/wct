@@ -3,8 +3,71 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>World Class Title | Growth Partner Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>World Class Title | Ohio's Premium Title & Escrow Partner</title>
+    
+    <!-- SEO & AI Searchability -->
+    <meta name="description" content="World Class Title (WCT) is Ohio's highest-rated title agency. We provide a modern, tech-forward closing experience for agents, buyers, and sellers powered by Smart technology." />
+    <meta name="keywords" content="World Class Title, WCT, Ohio Title Company, Columbus Real Estate Title, Escrow Services Ohio, Smart Title Technology, Real Estate Closing Partner" />
+    <meta name="author" content="World Class Title" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://worldclasstitle.com/" />
+    <meta property="og:title" content="World Class Title | The Modern Closing Experience" />
+    <meta property="og:description" content="Ohio's premium growth partner for real estate professionals. Experience the fastest data and most secure closings in the industry." />
+    <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://worldclasstitle.com/" />
+    <meta property="twitter:title" content="World Class Title | Your Growth Partner" />
+    <meta property="twitter:description" content="Experience the intelligence behind every closing. WCT is transforming real estate title through proprietary tech and elite service." />
+    <meta property="twitter:image" content="https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png" />
+
+    <!-- Structured Data for Google/AI Agents -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "World Class Title",
+      "image": "https://images.squarespace-cdn.com/content/v1/5f4d40b11b4f1e6a11b920b5/1598967776211-2JVFU1R4U8PQM71BWUVE/WorldClassTitle_Logos-RGB-Primary.png",
+      "@id": "https://worldclasstitle.com",
+      "url": "https://worldclasstitle.com",
+      "telephone": "614-882-8022",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "5040 Pine Creek Drive",
+        "addressLocality": "Westerville",
+        "addressRegion": "OH",
+        "postalCode": "43081",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.1171,
+        "longitude": -82.9328
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:30",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/worldclasstitle",
+        "https://www.instagram.com/worldclasstitle"
+      ]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +79,12 @@
         --wct-light-blue: #B9D9EB;
         --wct-muted-blue: #A2B2C8;
       }
-      body {
-        font-family: 'Nunito Sans', sans-serif;
+      html, body {
         overflow-x: hidden;
+        width: 100%;
+        position: relative;
+        font-family: 'Nunito Sans', sans-serif;
+        scroll-behavior: smooth;
       }
       h1, h2, h3, .font-header {
         font-family: 'Nunito Sans', sans-serif;
@@ -49,6 +115,11 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: var(--wct-blue);
+      }
+
+      /* Fix for mobile Safari height */
+      .min-h-screen {
+        min-height: -webkit-fill-available;
       }
     </style>
   <script type="importmap">
