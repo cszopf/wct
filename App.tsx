@@ -17,7 +17,7 @@ import ListingArchitect from './components/ListingArchitect';
 import ClosingGuard from './components/ClosingGuard';
 import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
-import { X, ShieldCheck, Key, ArrowRight, ExternalLink } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -44,32 +44,14 @@ const App: React.FC = () => {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
   const [isEarnestOpen, setIsEarnestOpen] = useState(false);
-  const [hasKey, setHasKey] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const checkKey = async () => {
-      if (window.aistudio && typeof window.aistudio.hasSelectedApiKey === 'function') {
-        const selected = await window.aistudio.hasSelectedApiKey();
-        setHasKey(selected);
-      } else {
-        setHasKey(!!process.env.API_KEY);
-      }
-    };
-    checkKey();
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleConnectKey = async () => {
-    if (window.aistudio && typeof window.aistudio.openSelectKey === 'function') {
-      await window.aistudio.openSelectKey();
-      setHasKey(true);
-    }
-  };
 
   const handleToolAction = (action: string) => {
     switch(action) {
@@ -86,54 +68,14 @@ const App: React.FC = () => {
         window.open('https://www.worldclasstitle.com/schedule-closing', '_blank');
         break;
       case 'Marketing Studio':
-        document.getElementById('marketing')?.scrollIntoView({ behavior: 'smooth' });
+        const marketingEl = document.getElementById('marketing');
+        if (marketingEl) marketingEl.scrollIntoView({ behavior: 'smooth' });
         break;
       case 'Smart Login':
         window.open('https://smarttitle.space/', '_blank');
         break;
     }
   };
-
-  if (hasKey === null) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#004EA8]/10 border-t-[#004EA8] rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (hasKey === false) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-        <div className="max-w-xl w-full bg-white rounded-[3rem] shadow-2xl p-12 text-center relative overflow-hidden border border-slate-100">
-          <div className="w-20 h-20 bg-teal-50 text-teal-600 rounded-3xl flex items-center justify-center mx-auto mb-8 ring-8 ring-teal-50/50">
-            <ShieldCheck className="w-10 h-10" />
-          </div>
-          <h1 className="text-3xl font-header font-extrabold text-[#004EA8] mb-4 tracking-tight">WCT Secure Connection</h1>
-          <p className="text-slate-500 font-subheader mb-10 leading-relaxed">
-            To activate our proprietary <span className="font-bold text-[#004EA8]">Growth Tools</span> engine, please connect your secure API key.
-          </p>
-          <div className="space-y-4">
-            <button 
-              onClick={handleConnectKey}
-              className="w-full py-6 bg-[#004EA8] text-white rounded-full font-header font-black text-sm uppercase tracking-[0.2em] shadow-xl hover:bg-[#003375] transition-all flex items-center justify-center gap-4 group"
-            >
-              <Key className="w-5 h-5" />
-              Connect Secure Key
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <a 
-              href="https://ai.google.dev/gemini-api/docs/billing" 
-              target="_blank" 
-              className="inline-flex items-center gap-2 text-[10px] font-header font-black text-slate-400 hover:text-[#004EA8] transition-colors uppercase tracking-widest"
-            >
-              Billing Documentation <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -157,7 +99,7 @@ const App: React.FC = () => {
         </div>
         <SmartOneSection />
         <div id="team">
-          <TeamSection />
+          TeamSection />
         </div>
         <div id="resources">
           <EducationHub role={role} />
