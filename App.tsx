@@ -13,6 +13,7 @@ import SmartOneSection from './components/SmartOneSection';
 import EducationHub from './components/EducationHub';
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
+import ListingArchitect from './components/ListingArchitect';
 import ClosingGuard from './components/ClosingGuard';
 import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
@@ -51,7 +52,6 @@ const App: React.FC = () => {
         const selected = await window.aistudio.hasSelectedApiKey();
         setHasKey(selected);
       } else {
-        // Fallback for non-AI Studio environments
         setHasKey(!!process.env.API_KEY);
       }
     };
@@ -67,7 +67,6 @@ const App: React.FC = () => {
   const handleConnectKey = async () => {
     if (window.aistudio && typeof window.aistudio.openSelectKey === 'function') {
       await window.aistudio.openSelectKey();
-      // Assume success after trigger per instructions to avoid race conditions
       setHasKey(true);
     }
   };
@@ -112,7 +111,7 @@ const App: React.FC = () => {
           </div>
           <h1 className="text-3xl font-header font-extrabold text-[#004EA8] mb-4 tracking-tight">WCT Secure Connection</h1>
           <p className="text-slate-500 font-subheader mb-10 leading-relaxed">
-            To activate our proprietary <span className="font-bold text-[#004EA8]">Smart Audit™</span> engine and growth tools, please connect your secure API key.
+            To activate our proprietary <span className="font-bold text-[#004EA8]">Growth Tools</span> engine, please connect your secure API key.
           </p>
           <div className="space-y-4">
             <button 
@@ -150,6 +149,7 @@ const App: React.FC = () => {
         <TrustBar />
         <MarketingStudio />
         <TrustSection />
+        <ListingArchitect />
         <ClosingGuard />
         <DynamicValuePanel role={role} />
         <div id="tools">
