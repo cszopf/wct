@@ -64,28 +64,32 @@ const SmartOneSection: React.FC = () => {
                 <div className="h-6 w-1/3 bg-slate-800 rounded-b-2xl mx-auto mb-4" />
                 <div className="px-6 flex-grow">
                    <div className="h-8 w-1/2 bg-slate-800 rounded-full mb-8" />
-                   <div className="aspect-square bg-blue-500 rounded-3xl mb-8 flex items-center justify-center">
-                      <Home className="w-20 h-20 text-white" />
+                   
+                   <div className="relative mb-8">
+                      <div className="aspect-square bg-blue-500 rounded-3xl flex items-center justify-center shadow-inner">
+                         <Home className="w-20 h-20 text-white" />
+                      </div>
+                      
+                      {/* Integrated Protected Status Badge */}
+                      <div className="absolute -bottom-4 -right-4 bg-white p-3 rounded-2xl shadow-xl border border-slate-100 text-slate-900 flex items-center gap-3 animate-in zoom-in-95 duration-700">
+                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shrink-0 shadow-sm">
+                           <Shield className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="whitespace-nowrap pr-2">
+                           <p className="text-[8px] font-header font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Protected</p>
+                           <p className="text-[10px] font-header font-black text-slate-900 uppercase tracking-tighter leading-none">Shield Active</p>
+                        </div>
+                      </div>
                    </div>
-                   <div className="space-y-4">
-                      <div className="h-12 w-full bg-slate-800 rounded-2xl" />
-                      <div className="h-12 w-full bg-slate-800 rounded-2xl" />
-                      <div className="h-12 w-full bg-slate-800 rounded-2xl" />
+
+                   <div className="space-y-4 mt-12">
+                      <div className="h-12 w-full bg-slate-800 rounded-2xl opacity-50" />
+                      <div className="h-12 w-full bg-slate-800 rounded-2xl opacity-50" />
+                      <div className="h-12 w-full bg-slate-800 rounded-2xl opacity-50" />
                    </div>
                 </div>
                 <div className="p-6 bg-slate-800">
                    <div className="h-1 w-1/3 bg-slate-700 rounded-full mx-auto" />
-                </div>
-             </div>
-             
-             {/* Floating Achievement - Hidden on very small screens */}
-             <div className="hidden sm:flex absolute top-20 right-0 bg-white p-4 rounded-2xl shadow-2xl text-slate-900 items-center gap-3">
-                <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                   <Shield className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Protected</p>
-                   <p className="text-sm font-bold">Title Shield Active</p>
                 </div>
              </div>
           </div>

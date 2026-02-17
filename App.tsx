@@ -14,6 +14,7 @@ import EducationHub from './components/EducationHub';
 import Footer from './components/Footer';
 import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
+import FraudTrackerModal from './components/FraudTrackerModal';
 import { X } from 'lucide-react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
@@ -41,6 +42,7 @@ const App: React.FC = () => {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
   const [isEarnestOpen, setIsEarnestOpen] = useState(false);
+  const [isFraudOpen, setIsFraudOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +61,7 @@ const App: React.FC = () => {
         setIsEarnestOpen(true);
         break;
       case 'Fraud Tracker':
-        window.open('https://worldclasstitle.com/security', '_blank');
+        setIsFraudOpen(true);
         break;
       case 'Schedule Closing':
         window.open('https://www.worldclasstitle.com/schedule-closing', '_blank');
@@ -105,6 +107,7 @@ const App: React.FC = () => {
       <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
       <OrderTitleModal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)} />
       <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
+      <FraudTrackerModal isOpen={isFraudOpen} onClose={() => setIsFraudOpen(false)} />
     </div>
   );
 };
