@@ -60,7 +60,6 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-header font-black text-xs text-slate-900 uppercase tracking-widest mb-8">Quick Links</h4>
             <ul className="space-y-4 text-sm font-subheader font-semibold text-slate-500">
-              <li><a href="#closing-guard" className="hover:text-[#004EA8] transition-colors">AI Closing Guard™</a></li>
               <li><a href="#marketing" className="hover:text-[#004EA8] transition-colors">Marketing Studio</a></li>
               <li><a href="#tools" className="hover:text-[#004EA8] transition-colors">Growth Dashboard</a></li>
               <li><a href="#resources" className="hover:text-[#004EA8] transition-colors">Market Insights</a></li>

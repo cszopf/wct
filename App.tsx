@@ -12,9 +12,6 @@ import TeamSection from './components/TeamSection';
 import SmartOneSection from './components/SmartOneSection';
 import EducationHub from './components/EducationHub';
 import Footer from './components/Footer';
-import Assistant from './components/Assistant';
-import ListingArchitect from './components/ListingArchitect';
-import ClosingGuard from './components/ClosingGuard';
 import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
 import { X } from 'lucide-react';
@@ -91,8 +88,6 @@ const App: React.FC = () => {
         <TrustBar />
         <MarketingStudio />
         <TrustSection />
-        <ListingArchitect />
-        <ClosingGuard />
         <DynamicValuePanel role={role} />
         <div id="tools">
           <PowerTools onToolClick={handleToolAction} />
@@ -107,7 +102,6 @@ const App: React.FC = () => {
       </main>
 
       <Footer />
-      <Assistant role={role} />
       <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
       <OrderTitleModal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)} />
       <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
