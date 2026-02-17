@@ -10,12 +10,8 @@ import {
   Database, 
   Cpu, 
   ExternalLink,
-  Monitor,
-  Layout,
-  MousePointer2,
   Lock,
-  Wifi,
-  Clock
+  Wifi
 } from 'lucide-react';
 
 interface HeroProps {
@@ -24,7 +20,7 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ role, onOpenQuote }) => {
-  const content = ROLE_CONTENT[role];
+  const content = (ROLE_CONTENT as any)[role];
 
   return (
     <section className="relative pt-24 pb-16 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
@@ -39,7 +35,9 @@ const Hero: React.FC<HeroProps> = ({ role, onOpenQuote }) => {
                 <Database className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#004EA8]" />
                 <Cpu className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-[#64CCC9]" />
               </div>
-              <span className="text-[8px] lg:text-[10px] font-header font-black uppercase tracking-[0.2em] text-[#004EA8]">Fastest Data + Proprietary Tech</span>
+              <span className="text-[8px] lg:text-[10px] font-header font-black uppercase tracking-[0.2em] text-[#004EA8]">
+                {content.badgeText}
+              </span>
             </div>
             
             <h1 className="text-3xl sm:text-4xl lg:text-7xl font-header font-extrabold text-[#004EA8] leading-[1.1] lg:leading-[1] mb-6 lg:mb-8">

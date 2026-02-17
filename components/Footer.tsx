@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
+import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram, ExternalLink } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const licensedStates = [
@@ -64,6 +64,17 @@ const Footer: React.FC = () => {
               <li><a href="#tools" className="hover:text-[#004EA8] transition-colors">Growth Dashboard</a></li>
               <li><a href="#resources" className="hover:text-[#004EA8] transition-colors">Market Insights</a></li>
               <li><a href="#team" className="hover:text-[#004EA8] transition-colors">Team Directory</a></li>
+              <li>
+                <a 
+                  href="https://smarttitleventures.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-[#004EA8] transition-colors flex items-center gap-1.5 text-[#64CCC9] font-bold"
+                >
+                  Smart Title Ventures
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
             </ul>
           </div>
 

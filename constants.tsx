@@ -24,6 +24,7 @@ export const ROLE_CONTENT = {
     headline: "The World's Best Buyer Experience.",
     subheadline: "Built on the fastest data in the industry. Track every milestone of your purchase with our proprietary closing engine.",
     primaryCTA: "Track My Closing",
+    badgeText: "Safe, trusted and transparent",
     link: "https://rea-buyer.vercel.app/",
     experienceLabel: "Buyer Dashboard",
     valueProps: [
@@ -36,6 +37,7 @@ export const ROLE_CONTENT = {
     headline: "Radical Transparency for Sellers.",
     subheadline: "Proprietary tech that clears your title ahead of schedule. Real-time net sheets and proactive lien resolution powered by WCT Smart.",
     primaryCTA: "Prepare for Closing",
+    badgeText: "Your business means the world to us",
     link: "https://rea-seller.vercel.app/",
     experienceLabel: "Seller Dashboard",
     valueProps: [
@@ -48,6 +50,7 @@ export const ROLE_CONTENT = {
     headline: "Your Unfair Advantage in Ohio Real Estate.",
     subheadline: "We built the industry's most advanced Agent Access system. See every deal, win more listings, and close faster with our proprietary tech stack.",
     primaryCTA: "Access Agent Experience",
+    badgeText: "Often imitated, never duplicated",
     link: "https://rea-buyer.vercel.app/", 
     experienceLabel: "Agent Access Panel",
     valueProps: [
@@ -60,6 +63,7 @@ export const ROLE_CONTENT = {
     headline: "Institutional Precision. Unmatched Speed.",
     subheadline: "Powered by the best data sets and proprietary title search technology. Secure, integrated, and built for high-performance teams.",
     primaryCTA: "Submit New Order",
+    badgeText: "Fastest Data + Proprietary Tech",
     link: "https://rea-buyer.vercel.app/",
     experienceLabel: "Lender Portal",
     valueProps: [
@@ -72,6 +76,7 @@ export const ROLE_CONTENT = {
     headline: "Velocity and Visibility at Scale.",
     subheadline: "Proprietary portfolio dashboard built on the fastest data. High-volume title processing for the modern asset manager.",
     primaryCTA: "Portfolio Dashboard",
+    badgeText: "Fastest Data + Proprietary Tech",
     link: "https://rea-seller.vercel.app/",
     experienceLabel: "Investor Dashboard",
     valueProps: [
@@ -135,7 +140,7 @@ export const MARKETING_PILLARS = [
 export const MARKETING_PACKAGES = [
   { name: "Silver", price: "Entry Level", description: "Essential listing photography and flyers.", features: ["Photography", "Flyer Template", "Net Sheet"], color: "bg-slate-100" },
   { name: "Gold", price: "Strategic Choice", description: "Photography + Social Media amplification.", features: ["Photography", "Social Reel", "Brochure Design", "Drone Stills"], color: "bg-blue-50" },
-  { name: "Platinum", price: "Most Popular", description: "Complete media and marketing takeover.", features: ["All Gold Features", "Matterport 3D", "Premium Video", "Social Ad Boost"], color: "bg-slate-900", dark: true, popular: true }
+  { name: "Platinum", price: "Most Popular", description: "Complete media and marketing takeover.", features: ["All Gold Features", "Platinum Brochures", "Premium Video", "Reel Social"], color: "bg-slate-900", dark: true, popular: true }
 ];
 
 export const REVIEWS = [
