@@ -99,7 +99,7 @@ const App: React.FC = () => {
         </div>
         <SmartOneSection />
         <div id="team">
-          TeamSection />
+          <TeamSection />
         </div>
         <div id="resources">
           <EducationHub role={role} />
