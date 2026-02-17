@@ -21,7 +21,7 @@ const PowerTools: React.FC<PowerToolsProps> = ({ onToolClick }) => {
             onClick={() => onToolClick('Smart Login')}
             className="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:bg-slate-100 transition-colors"
           >
-            Access Full Dashboard
+            Access WCT Smart Spaces
           </button>
         </div>
 

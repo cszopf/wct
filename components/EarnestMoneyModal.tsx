@@ -1,92 +1,85 @@
 
-import React, { useState } from 'react';
-import { X, Landmark, ChevronRight, ShieldCheck, CreditCard } from 'lucide-react';
-
-const STATES = [
-  'Ohio', 'Michigan', 'Pennsylvania', 'New Jersey', 'Florida', 
-  'Kentucky', 'Indiana', 'Virginia', 'Tennessee'
-];
+import React from 'react';
+import { X, ExternalLink, ShieldCheck } from 'lucide-react';
 
 interface EarnestMoneyModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const EarnestMoneyModal: React.FC<EarnestMoneyModalProps> = ({ isOpen, onClose }) => {
-  const [selectedState, setSelectedState] = useState<string | null>(null);
+const STATE_LINKS = [
+  { name: 'OHIO', url: 'https://keybox.payload.co/world-class-title/payment/world-class-title---ohio' },
+  { name: 'FLORIDA', url: 'https://keybox.payload.co/world-class-title/payment/world-class-title---florida' },
+  { name: 'PENNSYLVANIA', url: 'https://keybox.payload.co/world-class-title/payment/world-class-title---pa' },
+  { name: 'NEW JERSEY', url: 'https://keybox.payload.co/world-class-title/payment/world-class-title-nj' },
+  { name: 'VIRGINIA', url: 'https://keybox.payload.com/world-class-title/payment/world-class-title-va' },
+  { name: 'All Other States', url: 'https://keybox.payload.co/world-class-title/payment/world-class-title---ohio' },
+];
 
+const EarnestMoneyModal: React.FC<EarnestMoneyModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300">
-        <div className="p-8 border-b border-slate-100 flex items-center justify-between">
-          <div>
-            <h3 className="text-2xl font-header font-black text-[#004EA8]">Earnest Money</h3>
-            <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest mt-1">Secure Bank Transfer via Stripe</p>
-          </div>
-          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
-            <X className="w-5 h-5 text-slate-900" />
-          </button>
-        </div>
+      <div className="relative bg-[#F8F9FA] w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-300 flex flex-col">
+        {/* Close Button */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-6 right-6 p-2 bg-white/50 hover:bg-white rounded-full transition-colors z-10 text-slate-400 hover:text-slate-900 shadow-sm border border-slate-100"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-        <div className="p-8">
-          {!selectedState ? (
-            <>
-              <p className="text-sm text-slate-500 font-subheader mb-6">
-                Please select the state where the property is located to ensure your funds are routed to the correct escrow account.
-              </p>
-              <div className="grid grid-cols-1 gap-3">
-                {STATES.map((state) => (
-                  <button
-                    key={state}
-                    onClick={() => setSelectedState(state)}
-                    className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[#64CCC9] hover:bg-white transition-all group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-slate-400 group-hover:text-[#64CCC9]">
-                        <Landmark className="w-4 h-4" />
-                      </div>
-                      <span className="font-header font-bold text-xs text-slate-700">{state}</span>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-[#64CCC9]" />
-                  </button>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-4">
-              <div className="w-16 h-16 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <ShieldCheck className="w-8 h-8" />
-              </div>
-              <h4 className="text-xl font-header font-black text-slate-900 mb-2">Routing to {selectedState} Escrow</h4>
-              <p className="text-sm text-slate-500 mb-8 font-subheader leading-relaxed">
-                We use Stripe Bank Pay for secure, direct earnest money transfers. You will be redirected to Stripe to securely link your bank account.
-              </p>
-              <button 
-                onClick={() => window.open('https://stripe.com/payments/bank-transfers', '_blank')}
-                className="w-full py-5 bg-[#004EA8] text-white rounded-full font-header font-black text-xs tracking-widest hover:bg-[#003375] transition-all flex items-center justify-center gap-3 shadow-xl"
+        <div className="p-8 lg:p-12 overflow-y-auto">
+          {/* Header section matching screenshot style */}
+          <div className="text-center mb-10">
+            <h3 className="text-[#64CCC9] text-4xl lg:text-5xl font-subheader font-light mb-6">
+              Send Earnest Money
+            </h3>
+            <p className="text-[#004EA8] text-sm lg:text-base font-subheader leading-relaxed max-w-xl mx-auto">
+              Earnest money is collected by title companies to protect the interests of both the buyer and the seller in real estate transactions.
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col items-center gap-4 max-w-sm mx-auto">
+            {STATE_LINKS.map((state) => (
+              <a
+                key={state.name}
+                href={state.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full py-4 px-6 rounded-lg font-header font-bold text-xs lg:text-sm tracking-widest text-center transition-all hover:scale-[1.02] active:scale-95 shadow-lg flex items-center justify-center gap-2 ${
+                  state.name === 'All Other States' 
+                  ? 'bg-[#64CCC9] text-white' 
+                  : 'bg-[#64CCC9] text-white'
+                }`}
               >
-                PROCEED TO STRIPE SECURE PAY
-                <CreditCard className="w-4 h-4" />
-              </button>
-              <button 
-                onClick={() => setSelectedState(null)}
-                className="mt-4 text-[10px] font-header font-black text-slate-400 uppercase tracking-widest hover:text-[#004EA8]"
-              >
-                Change State
-              </button>
+                {state.name === 'All Other States' ? state.name : `Send Earnest Money – ${state.name}`}
+                <ExternalLink className="w-3.5 h-3.5 opacity-50" />
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100">
+              <ShieldCheck className="w-4 h-4 text-[#64CCC9]" />
+              <span className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">
+                Secure Bank Encryption via Keybox
+              </span>
             </div>
-          )}
+            <p className="text-[9px] text-slate-400 font-subheader max-w-xs text-center opacity-70">
+              You will be redirected to our secure payment processor to complete your transaction.
+            </p>
+          </div>
         </div>
 
-        <div className="bg-slate-50 p-6 flex items-center justify-center gap-4 border-t border-slate-100">
-          <div className="flex items-center gap-2 opacity-40">
-            <div className="h-4 w-12 bg-slate-300 rounded" />
-            <div className="h-4 w-12 bg-slate-300 rounded" />
-          </div>
-          <span className="text-[9px] font-header font-black text-slate-400 uppercase tracking-widest">Bank-Grade 256-bit Encryption</span>
+        {/* Branding Footer */}
+        <div className="bg-[#E9ECEF] py-4 text-center">
+          <p className="text-[10px] font-header font-black text-slate-400 uppercase tracking-widest">
+            World Class Title | Escrow Services
+          </p>
         </div>
       </div>
     </div>
