@@ -22,15 +22,21 @@ const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
       <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white w-full max-w-5xl h-[80vh] rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-        <button onClick={onClose} className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-slate-100 rounded-full transition-colors z-10 text-slate-900 border border-slate-200">
-          <X className="w-6 h-6" />
-        </button>
-        <iframe 
-          src="https://www.worldclasstitle.com/get-a-quote" 
-          className="w-full h-full border-none"
-          title="Get a Quote"
-        />
+      <div className="relative bg-white w-full max-w-5xl h-[80vh] rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
+        <div className="p-6 lg:p-8 bg-white border-b border-slate-100 flex items-center justify-between shrink-0">
+          <h3 className="text-xl lg:text-2xl font-header font-black text-[#004EA8]">Get a Quote</h3>
+          <button onClick={onClose} className="p-3 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-900">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <div className="flex-grow relative bg-slate-100">
+          <iframe 
+            src="https://worldclasstitle.titlecapture.com/login" 
+            className="absolute inset-0 w-full h-full border-none"
+            title="Get a Quote"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   );

@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ role, onOpenQuote }) => {
               {content.headline}
             </h1>
             
-            <p className="text-lg lg:text-xl text-slate-500 font-subheader leading-relaxed mb-8 lg:mb-12 max-w-xl mx-auto lg:mx-0">
+            <p className="text-lg lg:text-xl text-slate-500 font-subheader leading-relaxed mb-8 lg:mb-12 max-w-xl mx-auto lg:mx-0 whitespace-pre-wrap">
               {content.subheadline}
             </p>
             

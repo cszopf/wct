@@ -15,74 +15,77 @@ import {
   BarChart3,
   Database,
   Cpu,
-  CreditCard
+  CreditCard,
+  Eye,
+  TrendingUp,
+  ShieldAlert
 } from 'lucide-react';
 import { UserRole } from './types';
 
 export const ROLE_CONTENT = {
   [UserRole.BUYER]: {
     headline: "The World's Best Buyer Experience.",
-    subheadline: "Built on the fastest data in the industry. Track every milestone of your purchase with our proprietary closing engine.",
+    subheadline: "Your ownership rights deserve serious protection.\n\nWith our team of experienced professionals and clear communication, we guide you to closing with confidence and certainty.\n\nA smoother process.\nStronger protection.",
     primaryCTA: "Track My Closing",
     badgeText: "Safe, trusted and transparent",
     link: "https://rea-buyer.vercel.app/",
     experienceLabel: "Buyer Dashboard",
     valueProps: [
-      { title: "Proprietary Tech", description: "Our custom-built infrastructure clears title faster than traditional agencies.", icon: <Cpu className="w-6 h-6" /> },
-      { title: "Fastest Data", description: "Direct integrations with source data for instant updates and transparency.", icon: <Database className="w-6 h-6" /> },
-      { title: "WCT Smart One™", description: "Total home protection that starts the second you close.", icon: <Smartphone className="w-6 h-6" /> }
+      { title: "Confidence", description: "Guide you to closing with confidence and certainty.", icon: <ShieldCheck className="w-6 h-6" /> },
+      { title: "Communication", description: "Clear communication throughout the process.", icon: <Share2 className="w-6 h-6" /> },
+      { title: "Protection", description: "Your ownership rights deserve serious protection.", icon: <ShieldAlert className="w-6 h-6" /> }
     ]
   },
   [UserRole.SELLER]: {
     headline: "Radical Transparency for Sellers.",
-    subheadline: "Proprietary tech that clears your title ahead of schedule. Real-time net sheets and proactive lien resolution powered by WCT Smart.",
+    subheadline: "When you sell, timing and clarity matter.\n\nSmart Spaces supports early review of title conditions so potential issues can be addressed before they delay your closing. Our team works proactively with your agent to keep your transaction moving.\n\nYour equity is protected with discipline and care.",
     primaryCTA: "Prepare for Closing",
     badgeText: "Your business means the world to us",
     link: "https://rea-seller.vercel.app/",
     experienceLabel: "Seller Dashboard",
     valueProps: [
-      { title: "Instant Net Clarity", description: "Know exactly what you'll walk away with, updated in real-time.", icon: <BarChart3 className="w-6 h-6" /> },
-      { title: "Proactive Clearance", description: "Our tech identifies and resolves title issues before they hit the schedule.", icon: <Search className="w-6 h-6" /> },
-      { title: "Seamless Handover", description: "Automated communication with all parties via our Smart platform.", icon: <Zap className="w-6 h-6" /> }
+      { title: "Early Review", description: "Smart Spaces supports early review of title conditions.", icon: <Search className="w-6 h-6" /> },
+      { title: "Proactive Team", description: "Our team works proactively to keep your transaction moving.", icon: <Zap className="w-6 h-6" /> },
+      { title: "Equity Protection", description: "Your equity is protected with discipline and care.", icon: <ShieldCheck className="w-6 h-6" /> }
     ]
   },
   [UserRole.AGENT]: {
     headline: "Your Unfair Advantage in Ohio Real Estate.",
-    subheadline: "We are marketing and technology experts who happen to do real estate title insurance exceptionally well.",
+    subheadline: "World Class Title is built for agents who expect more from their title partner.\n\nPowered by Smart Spaces, our proprietary AI driven title intelligence platform, we identify potential issues earlier and reduce closing friction. Elevated by World Class Marketing, we help you compete at a higher level.",
     primaryCTA: "Access Agent Experience",
     badgeText: "Often imitated, never duplicated",
     link: "https://rea-buyer.vercel.app/", 
     experienceLabel: "Agent Access Panel",
     valueProps: [
-      { title: "Agent Access Panel", description: "Real-time visibility into every file with the industry's fastest data sync.", icon: <Layers className="w-6 h-6" /> },
-      { title: "Proprietary Marketing", description: "Exclusive media packages designed to help you win the listing presentation.", icon: <Camera className="w-6 h-6" /> },
-      { title: "Clear-to-Close Engine", description: "Our tech stack clears deals up to 40% faster than traditional title.", icon: <Zap className="w-6 h-6" /> }
+      { title: "AI Intelligence", description: "Powered by Smart Spaces, our proprietary AI title intelligence platform.", icon: <Cpu className="w-6 h-6" /> },
+      { title: "Frictionless", description: "Identify potential issues earlier and reduce closing friction.", icon: <Zap className="w-6 h-6" /> },
+      { title: "Elite Branding", description: "Elevated by World Class Marketing to help you compete.", icon: <Camera className="w-6 h-6" /> }
     ]
   },
   [UserRole.LENDER]: {
     headline: "Institutional Precision. Unmatched Speed.",
-    subheadline: "Powered by the best data sets and proprietary title search technology. Secure, integrated, and built for high-performance teams.",
+    subheadline: "Lenders need reliability, speed, and precision.\n\nPowered by Smart Spaces, we enhance visibility into title conditions and support efficient issue resolution throughout the transaction lifecycle.",
     primaryCTA: "Submit New Order",
     badgeText: "Fastest Data + Proprietary Tech",
     link: "https://rea-buyer.vercel.app/",
     experienceLabel: "Lender Portal",
     valueProps: [
-      { title: "Data Integrity", description: "Bank-grade security and source-verified data for total compliance.", icon: <Database className="w-6 h-6" /> },
-      { title: "Real-time API", description: "Our proprietary systems plug directly into your LOS for frictionless data transfer.", icon: <Cpu className="w-6 h-6" /> },
-      { title: "Secure Wiring", description: "Multivariate authentication for every dollar moved through our escrow.", icon: <ShieldCheck className="w-6 h-6" /> }
+      { title: "Reliability", description: "Lenders need reliability, speed, and precision.", icon: <ShieldCheck className="w-6 h-6" /> },
+      { title: "Visibility", description: "Enhance visibility into title conditions with Smart Spaces.", icon: <Eye className="w-6 h-6" /> },
+      { title: "Resolution", description: "Efficient issue resolution throughout the transaction lifecycle.", icon: <Clock className="w-6 h-6" /> }
     ]
   },
   [UserRole.INVESTOR]: {
     headline: "Velocity and Visibility at Scale.",
-    subheadline: "Investor friendly title company powering your processing with speed, transparency and the most advanced technology in title.",
+    subheadline: "Investors move on timing and margin.\n\nSmart Spaces supports faster analysis and earlier identification of potential encumbrances, helping reduce risk across acquisitions and dispositions.",
     primaryCTA: "Portfolio Dashboard",
     badgeText: "Fastest Data + Proprietary Tech",
     link: "https://rea-seller.vercel.app/",
     experienceLabel: "Investor Dashboard",
     valueProps: [
-      { title: "Batch Processing", description: "Move 10 or 100 files with the same level of speed and precision.", icon: <Layers className="w-6 h-6" /> },
-      { title: "Aggressive Clearance", description: "Proprietary search tech built for complex distressed properties.", icon: <Search className="w-6 h-6" /> },
-      { title: "Asset Protection", description: "Active monitoring of your entire property portfolio via Smart One.", icon: <Smartphone className="w-6 h-6" /> }
+      { title: "Timing & Margin", description: "Optimized for investors who move on timing and margin.", icon: <BarChart3 className="w-6 h-6" /> },
+      { title: "Risk Mitigation", description: "Earlier identification of potential encumbrances to reduce risk.", icon: <ShieldAlert className="w-6 h-6" /> },
+      { title: "Faster Analysis", description: "Smart Spaces supports faster analysis of complex property data.", icon: <Zap className="w-6 h-6" /> }
     ]
   }
 };
@@ -115,7 +118,7 @@ export const MARKETING_PILLARS = [
     title: "LISTING MEDIA POWER",
     description: "Professional photography, drone, MLS ready video, and premium listing presentation assets designed to help you win more sellers.",
     icon: <Camera />,
-    features: ["4K Drone Footage", "MLS Ready Video Walkthrough", "Zillow 3D Home Tour"]
+    features: ["4K Drone Footage", "MLS Ready Video Walkthrough", "Premium Video"]
   },
   {
     title: "SOCIAL AMPLIFICATION",
@@ -156,7 +159,7 @@ export const MARKETING_PACKAGES = [
     name: "Platinum", 
     price: "Most Popular", 
     description: "Complete media and marketing takeover. A premium coffee table style listing book designed to elevate the presentation and help your seller feel proud of the marketing.", 
-    features: ["All Gold Features", "Zillow 3D Home Tour", "MLS Ready Video Walkthrough", "2D Floor Plan", "Dusk Exterior Feature Shot", "Platinum Showcase Book"], 
+    features: ["All Gold Features", "Premium Video", "MLS Ready Video Walkthrough", "2D Floor Plan", "Dusk Exterior Feature Shot", "Platinum Showcase Book"], 
     color: "bg-slate-900", 
     dark: true, 
     popular: true 
