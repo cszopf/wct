@@ -64,7 +64,7 @@ const App: React.FC = () => {
         setIsFraudOpen(true);
         break;
       case 'Schedule Closing':
-        window.open('https://www.worldclasstitle.com/schedule-closing', '_blank');
+        window.open('https://worldclasstitle.as.me/schedule/7dabae28', '_blank');
         break;
       case 'Marketing Studio':
         const marketingEl = document.getElementById('marketing');

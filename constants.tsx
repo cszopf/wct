@@ -48,7 +48,7 @@ export const ROLE_CONTENT = {
   },
   [UserRole.AGENT]: {
     headline: "Your Unfair Advantage in Ohio Real Estate.",
-    subheadline: "We built the industry's most advanced Agent Access system. See every deal, win more listings, and close faster with our proprietary tech stack.",
+    subheadline: "We are marketing and technology experts who happen to do real estate title insurance exceptionally well.",
     primaryCTA: "Access Agent Experience",
     badgeText: "Often imitated, never duplicated",
     link: "https://rea-buyer.vercel.app/", 
@@ -74,7 +74,7 @@ export const ROLE_CONTENT = {
   },
   [UserRole.INVESTOR]: {
     headline: "Velocity and Visibility at Scale.",
-    subheadline: "Proprietary portfolio dashboard built on the fastest data. High-volume title processing for the modern asset manager.",
+    subheadline: "Investor friendly title company powering your processing with speed, transparency and the most advanced technology in title.",
     primaryCTA: "Portfolio Dashboard",
     badgeText: "Fastest Data + Proprietary Tech",
     link: "https://rea-seller.vercel.app/",
@@ -97,8 +97,8 @@ export const ALACARTE_OPTIONS = [
   { title: "25 Listing Brochures", description: "4 Pages, 1 Stipple Sheet" },
   { title: "Dusk Photo Edits", description: "Professional twilight transformation" },
   { title: "Community Photos", description: "Showcase the neighborhood lifestyle" },
-  { title: "3D Matterport Tour", description: "Fully immersive digital walkthrough" },
-  { title: "3D Zillow Tour", description: "Optimize your Zillow ranking" },
+  { title: "Zillow 3D Home Tour", description: "Fully immersive digital walkthrough" },
+  { title: "Zillow 3D Home Tour", description: "Optimize your Zillow ranking" },
   { title: "Content Creation Broker Open (CCBO)", description: "Event-based content marketing" },
   { title: "Virtual Staging", description: "Per-room digital furniture placement" },
   { title: "Walk Thru Video", description: "Vertical format / No Drone / Unedited" },
@@ -112,35 +112,55 @@ export const ALACARTE_OPTIONS = [
 
 export const MARKETING_PILLARS = [
   {
-    title: "Listing Media Power",
-    description: "Professional photography, drone, MLS video, and luxury listing presentation support to win more sellers.",
+    title: "LISTING MEDIA POWER",
+    description: "Professional photography, drone, MLS ready video, and premium listing presentation assets designed to help you win more sellers.",
     icon: <Camera />,
-    features: ["4K Drone Footage", "Matterport 3D Tours", "Listing Presentation Kits"]
+    features: ["4K Drone Footage", "MLS Ready Video Walkthrough", "Zillow 3D Home Tour"]
   },
   {
-    title: "Social Amplification",
-    description: "Done-for-you Instagram Reels, TikTok content, and Facebook promotion to keep your brand top of mind.",
+    title: "SOCIAL AMPLIFICATION",
+    description: "Done for you social post packages for Instagram and Facebook to keep your brand top of mind.",
     icon: <Share2 />,
-    features: ["Content Reels", "Daily Post Packages", "Ad Management"]
+    features: ["Instagram Post and Story Package", "Facebook Post Package", "Highlight Covers and Captions"]
   },
   {
-    title: "Design Studio",
-    description: "Custom brochures, property flyers, and premium open house sign-in sheets that make you look elite.",
+    title: "DESIGN STUDIO",
+    description: "Custom brochures, property flyers, and premium open house materials that make you look elite.",
     icon: <Palette />,
-    features: ["Custom Brochures", "Branded Open House Kits", "Listing Flyers"]
+    features: ["Custom Brochures", "Branded Open House Kit", "Listing Flyers"]
   },
   {
-    title: "Listing Intelligence",
-    description: "AI-powered property snapshots and net-to-seller tools that give you an edge in listing conversations.",
+    title: "LISTING INTELLIGENCE",
+    description: "AI powered property snapshots and seller net sheets that give you an edge in listing conversations.",
     icon: <Target />,
-    features: ["Property AI Snapshots", "Seller Net Sheets", "Market Heat Maps"]
+    features: ["Property Snapshot", "Seller Net Sheet", "Market Heat Map"]
   }
 ];
 
 export const MARKETING_PACKAGES = [
-  { name: "Silver", price: "Entry Level", description: "Essential listing photography and flyers.", features: ["Photography", "Flyer Template", "Net Sheet"], color: "bg-slate-100" },
-  { name: "Gold", price: "Strategic Choice", description: "Photography + Social Media amplification.", features: ["Photography", "Social Reel", "Brochure Design", "Drone Stills"], color: "bg-blue-50" },
-  { name: "Platinum", price: "Most Popular", description: "Complete media and marketing takeover.", features: ["All Gold Features", "Platinum Brochures", "Premium Video", "Reel Social"], color: "bg-slate-900", dark: true, popular: true }
+  { 
+    name: "Silver", 
+    price: "Entry Level", 
+    description: "Essential listing brochures and social packages.", 
+    features: ["Brochure Design", "Social Post Package", "Open House Flyer Kit"], 
+    color: "bg-slate-100" 
+  },
+  { 
+    name: "Gold", 
+    price: "Strategic Choice", 
+    description: "Photography + Social Media amplification.", 
+    features: ["Photography", "Social Post and Story Package", "Brochure Design", "Drone Stills"], 
+    color: "bg-blue-50" 
+  },
+  { 
+    name: "Platinum", 
+    price: "Most Popular", 
+    description: "Complete media and marketing takeover. A premium coffee table style listing book designed to elevate the presentation and help your seller feel proud of the marketing.", 
+    features: ["All Gold Features", "Zillow 3D Home Tour", "MLS Ready Video Walkthrough", "2D Floor Plan", "Dusk Exterior Feature Shot", "Platinum Showcase Book"], 
+    color: "bg-slate-900", 
+    dark: true, 
+    popular: true 
+  }
 ];
 
 export const REVIEWS = [
