@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { UserRole } from './types';
 import Header from './components/Header';
@@ -15,6 +14,7 @@ import Footer from './components/Footer';
 import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
 import FraudTrackerModal from './components/FraudTrackerModal';
+import BrandGuidelinesModal from './components/BrandGuidelinesModal';
 import { X } from 'lucide-react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
@@ -49,6 +49,7 @@ const App: React.FC = () => {
   const [isOrderOpen, setIsOrderOpen] = useState(false);
   const [isEarnestOpen, setIsEarnestOpen] = useState(false);
   const [isFraudOpen, setIsFraudOpen] = useState(false);
+  const [isBrandOpen, setIsBrandOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,11 +110,13 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <Footer />
+      <Footer onBrandClick={() => setIsBrandOpen(true)} />
+      
       <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
       <OrderTitleModal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)} />
       <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
       <FraudTrackerModal isOpen={isFraudOpen} onClose={() => setIsFraudOpen(false)} />
+      <BrandGuidelinesModal isOpen={isBrandOpen} onClose={() => setIsBrandOpen(false)} />
     </div>
   );
 };

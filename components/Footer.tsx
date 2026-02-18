@@ -1,8 +1,11 @@
-
 import React from 'react';
 import { ShieldCheck, Mail, Phone, MapPin, Facebook, Instagram, ExternalLink } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onBrandClick: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onBrandClick }) => {
   const licensedStates = [
     'Ohio', 'Michigan', 'Pennsylvania', 'New Jersey', 'Florida', 
     'Kentucky', 'Indiana', 'Virginia', 'Tennessee'
@@ -64,6 +67,14 @@ const Footer: React.FC = () => {
               <li><a href="#tools" className="hover:text-[#004EA8] transition-colors">Growth Dashboard</a></li>
               <li><a href="#resources" className="hover:text-[#004EA8] transition-colors">Market Insights</a></li>
               <li><a href="#team" className="hover:text-[#004EA8] transition-colors">Team Directory</a></li>
+              <li>
+                <button 
+                  onClick={(e) => { e.preventDefault(); onBrandClick(); }} 
+                  className="hover:text-[#004EA8] transition-colors text-left outline-none"
+                >
+                  WCT Brand Guidelines
+                </button>
+              </li>
               <li>
                 <a 
                   href="https://smarttitleventures.com" 
