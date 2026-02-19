@@ -93,7 +93,10 @@ const Footer: React.FC<FooterProps> = ({ onBrandClick }) => {
             <h4 className="font-header font-black text-xs text-slate-900 uppercase tracking-widest mb-8">Contact</h4>
             <ul className="space-y-6 text-sm font-subheader font-semibold text-slate-500">
               <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-[#64CCC9] shrink-0" /> 614-882-8022</li>
-              <li className="flex items-start gap-4"><Mail className="w-5 h-5 text-[#64CCC9] shrink-0" /> info@worldclasstitle.com</li>
+              <li className="flex items-start gap-4">
+                <Mail className="w-5 h-5 text-[#64CCC9] shrink-0" />
+                <a href="mailto:info@worldclasstitle.com" className="hover:text-[#004EA8] transition-colors">info@worldclasstitle.com</a>
+              </li>
               <li className="flex items-start gap-4 text-xs"><MapPin className="w-5 h-5 text-[#64CCC9] shrink-0" /> 5040 Pine Creek Drive, Westerville, OH 43081</li>
             </ul>
           </div>

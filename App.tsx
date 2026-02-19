@@ -15,7 +15,7 @@ import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
 import FraudTrackerModal from './components/FraudTrackerModal';
 import BrandGuidelinesModal from './components/BrandGuidelinesModal';
-import { X } from 'lucide-react';
+import { X, Zap } from 'lucide-react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -42,6 +42,30 @@ const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen
   );
 };
 
+const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; onConfirm: () => void }> = ({ isOpen, onClose, onConfirm }) => {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white w-full max-w-md rounded-[2rem] shadow-2xl p-8 text-center animate-in zoom-in-95 duration-300">
+        <div className="w-16 h-16 bg-blue-50 text-[#004EA8] rounded-full flex items-center justify-center mx-auto mb-6">
+          <Zap className="w-8 h-8" />
+        </div>
+        <h3 className="text-2xl font-header font-black text-[#004EA8] mb-4">Demo Experience</h3>
+        <p className="text-slate-600 font-subheader mb-8">
+          This is a demonstration of the World Class Title digital experience. Some features may be limited in this preview environment.
+        </p>
+        <button 
+          onClick={onConfirm}
+          className="w-full py-4 bg-[#004EA8] text-white rounded-full font-header font-bold text-sm hover:bg-[#003375] transition-all"
+        >
+          GOT IT
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [role, setRole] = useState<UserRole>(UserRole.AGENT);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,6 +74,8 @@ const App: React.FC = () => {
   const [isEarnestOpen, setIsEarnestOpen] = useState(false);
   const [isFraudOpen, setIsFraudOpen] = useState(false);
   const [isBrandOpen, setIsBrandOpen] = useState(false);
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [pendingLink, setPendingLink] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,6 +109,19 @@ const App: React.FC = () => {
     }
   };
 
+  const handleHeroCTAClick = (role: UserRole, link: string) => {
+    setPendingLink(link);
+    setIsDemoOpen(true);
+  };
+
+  const handleDemoConfirm = () => {
+    if (pendingLink) {
+      window.open(pendingLink, '_blank');
+    }
+    setIsDemoOpen(false);
+    setPendingLink('');
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header 
@@ -93,7 +132,11 @@ const App: React.FC = () => {
       />
       
       <main>
-        <Hero role={role} onOpenQuote={() => setIsQuoteOpen(true)} />
+        <Hero 
+          role={role} 
+          onOpenQuote={() => setIsQuoteOpen(true)} 
+          onHeroCTAClick={handleHeroCTAClick}
+        />
         <TrustBar />
         <MarketingStudio />
         <TrustSection />
@@ -117,6 +160,11 @@ const App: React.FC = () => {
       <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
       <FraudTrackerModal isOpen={isFraudOpen} onClose={() => setIsFraudOpen(false)} />
       <BrandGuidelinesModal isOpen={isBrandOpen} onClose={() => setIsBrandOpen(false)} />
+      <DemoModal 
+        isOpen={isDemoOpen} 
+        onClose={() => setIsDemoOpen(false)} 
+        onConfirm={handleDemoConfirm}
+      />
     </div>
   );
 };
