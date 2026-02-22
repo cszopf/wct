@@ -15,6 +15,7 @@ import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
 import FraudTrackerModal from './components/FraudTrackerModal';
 import BrandGuidelinesModal from './components/BrandGuidelinesModal';
+import { getPortalDestination } from './utils';
 import { X, Zap } from 'lucide-react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
@@ -67,7 +68,16 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; onConfirm: () 
 };
 
 const App: React.FC = () => {
-  const [role, setRole] = useState<UserRole>(UserRole.AGENT);
+  const [role, setRole] = useState<UserRole>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('wct_active_role');
+      if (saved) {
+        const found = Object.values(UserRole).find(r => r.toLowerCase() === saved.toLowerCase());
+        if (found) return found;
+      }
+    }
+    return UserRole.BUYER;
+  });
   const [isScrolled, setIsScrolled] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
@@ -84,6 +94,11 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleRoleChange = (newRole: UserRole) => {
+    setRole(newRole);
+    localStorage.setItem('wct_active_role', newRole.toLowerCase());
+  };
 
   const handleToolAction = (action: string) => {
     switch(action) {
@@ -104,19 +119,20 @@ const App: React.FC = () => {
         if (marketingEl) marketingEl.scrollIntoView({ behavior: 'smooth' });
         break;
       case 'Smart Login':
-        window.open('https://smarttitle.space/', '_blank');
+        window.location.href = getPortalDestination(role);
         break;
     }
   };
 
-  const handleHeroCTAClick = (role: UserRole, link: string) => {
-    setPendingLink(link);
+  const handleHeroCTAClick = (currentRole: UserRole) => {
+    const destination = getPortalDestination(currentRole);
+    setPendingLink(destination);
     setIsDemoOpen(true);
   };
 
   const handleDemoConfirm = () => {
     if (pendingLink) {
-      window.open(pendingLink, '_blank');
+      window.location.href = pendingLink;
     }
     setIsDemoOpen(false);
     setPendingLink('');
@@ -126,7 +142,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Header 
         currentRole={role} 
-        onRoleChange={setRole} 
+        onRoleChange={handleRoleChange} 
         isScrolled={isScrolled} 
         onOrderClick={() => setIsOrderOpen(true)}
       />

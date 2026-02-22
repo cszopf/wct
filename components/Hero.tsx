@@ -17,7 +17,7 @@ import {
 interface HeroProps {
   role: UserRole;
   onOpenQuote?: () => void;
-  onHeroCTAClick?: (role: UserRole, link: string) => void;
+  onHeroCTAClick?: (role: UserRole) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ role, onOpenQuote, onHeroCTAClick }) => {
@@ -49,14 +49,19 @@ const Hero: React.FC<HeroProps> = ({ role, onOpenQuote, onHeroCTAClick }) => {
               {content.subheadline}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 lg:gap-5 justify-center lg:justify-start">
-              <button 
-                onClick={() => onHeroCTAClick?.(role, content.link)}
-                className="px-8 py-4 lg:px-10 lg:py-5 bg-[#004EA8] text-white rounded-full font-header font-bold text-sm flex items-center justify-center gap-3 hover:bg-[#003375] transition-all hover:shadow-2xl group active:scale-[0.98]"
-              >
-                {content.primaryCTA}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-5 justify-center lg:justify-start items-center lg:items-start">
+              <div className="flex flex-col gap-2 w-full sm:w-auto">
+                <button 
+                  onClick={() => onHeroCTAClick?.(role)}
+                  className="px-8 py-4 lg:px-10 lg:py-5 bg-[#004EA8] text-white rounded-full font-header font-bold text-sm flex items-center justify-center gap-3 hover:bg-[#003375] transition-all hover:shadow-2xl group active:scale-[0.98]"
+                >
+                  {content.primaryCTA}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <p className="text-[10px] text-slate-400 font-subheader text-center lg:text-left">
+                  You will be routed to the portal for your selected role.
+                </p>
+              </div>
               <button 
                 onClick={onOpenQuote}
                 className="px-8 py-4 lg:px-10 lg:py-5 bg-white text-[#004EA8] border-2 border-[#B9D9EB] rounded-full font-header font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition-all active:scale-[0.98]"
@@ -175,7 +180,7 @@ const Hero: React.FC<HeroProps> = ({ role, onOpenQuote, onHeroCTAClick }) => {
                       </div>
                    </div>
 
-                   <div className="absolute inset-0 bg-slate-900/0 hover:bg-slate-900/10 transition-all flex items-center justify-center group/overlay cursor-pointer" onClick={() => onHeroCTAClick?.(role, content.link)}>
+                   <div className="absolute inset-0 bg-slate-900/0 hover:bg-slate-900/10 transition-all flex items-center justify-center group/overlay cursor-pointer" onClick={() => onHeroCTAClick?.(role)}>
                       <div className="p-5 lg:p-6 bg-white/95 backdrop-blur shadow-2xl rounded-2xl lg:rounded-[2.5rem] opacity-0 group-hover/overlay:opacity-100 transition-all flex flex-col items-center gap-3 border border-white">
                          <div className="w-10 h-10 lg:w-16 lg:h-16 bg-slate-900 rounded-full flex items-center justify-center text-white">
                             <ExternalLink className="w-5 h-5 lg:w-8 lg:h-8" />

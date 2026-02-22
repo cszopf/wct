@@ -26,9 +26,9 @@ export const ROLE_CONTENT = {
   [UserRole.BUYER]: {
     headline: "The World's Best Buyer Experience.",
     subheadline: "Your ownership rights deserve serious protection.\n\nWith our team of experienced professionals and clear communication, we guide you to closing with confidence and certainty.\n\nA smoother process.\nStronger protection.",
-    primaryCTA: "Track My Closing",
+    primaryCTA: "Launch Dashboard",
     badgeText: "Safe, trusted and transparent",
-    link: "https://rea-buyer.vercel.app/",
+    link: "https://buyers.worldclasstitle.com",
     experienceLabel: "Buyer Dashboard",
     valueProps: [
       { title: "Confidence", description: "Guide you to closing with confidence and certainty.", icon: <ShieldCheck className="w-6 h-6" /> },
@@ -39,9 +39,9 @@ export const ROLE_CONTENT = {
   [UserRole.SELLER]: {
     headline: "Radical Transparency for Sellers.",
     subheadline: "When you sell, timing and clarity matter.\n\nSmart Spaces supports early review of title conditions so potential issues can be addressed before they delay your closing. Our team works proactively with your agent to keep your transaction moving.\n\nYour equity is protected with discipline and care.",
-    primaryCTA: "Prepare for Closing",
+    primaryCTA: "Launch Dashboard",
     badgeText: "Your business means the world to us",
-    link: "https://rea-seller.vercel.app/",
+    link: "https://sellers.worldclasstitle.com",
     experienceLabel: "Seller Dashboard",
     valueProps: [
       { title: "Early Review", description: "Smart Spaces supports early review of title conditions.", icon: <Search className="w-6 h-6" /> },
@@ -52,9 +52,9 @@ export const ROLE_CONTENT = {
   [UserRole.AGENT]: {
     headline: "Your Unfair Advantage in Ohio Real Estate.",
     subheadline: "World Class Title is built for agents who expect more from their title partner.\n\nPowered by Smart Spaces, our proprietary AI driven title intelligence platform, we identify potential issues earlier and reduce closing friction. Elevated by World Class Marketing, we help you compete at a higher level.",
-    primaryCTA: "Access Agent Experience",
+    primaryCTA: "Launch Dashboard",
     badgeText: "Often imitated, never duplicated",
-    link: "https://rea-buyer.vercel.app/", 
+    link: "https://buyers.worldclasstitle.com", 
     experienceLabel: "Agent Access Panel",
     valueProps: [
       { title: "AI Intelligence", description: "Powered by Smart Spaces, our proprietary AI title intelligence platform.", icon: <Cpu className="w-6 h-6" /> },
@@ -65,9 +65,9 @@ export const ROLE_CONTENT = {
   [UserRole.LENDER]: {
     headline: "Institutional Precision. Unmatched Speed.",
     subheadline: "Lenders need reliability, speed, and precision.\n\nPowered by Smart Spaces, we enhance visibility into title conditions and support efficient issue resolution throughout the transaction lifecycle.",
-    primaryCTA: "Submit New Order",
+    primaryCTA: "Launch Dashboard",
     badgeText: "Fastest Data + Proprietary Tech",
-    link: "https://rea-buyer.vercel.app/",
+    link: "https://buyers.worldclasstitle.com",
     experienceLabel: "Lender Portal",
     valueProps: [
       { title: "Reliability", description: "Lenders need reliability, speed, and precision.", icon: <ShieldCheck className="w-6 h-6" /> },
@@ -78,9 +78,9 @@ export const ROLE_CONTENT = {
   [UserRole.INVESTOR]: {
     headline: "Velocity and Visibility at Scale.",
     subheadline: "Investors move on timing and margin.\n\nSmart Spaces supports faster analysis and earlier identification of potential encumbrances, helping reduce risk across acquisitions and dispositions.",
-    primaryCTA: "Portfolio Dashboard",
+    primaryCTA: "Launch Dashboard",
     badgeText: "Fastest Data + Proprietary Tech",
-    link: "https://rea-seller.vercel.app/",
+    link: "https://sellers.worldclasstitle.com",
     experienceLabel: "Investor Dashboard",
     valueProps: [
       { title: "Timing & Margin", description: "Optimized for investors who move on timing and margin.", icon: <BarChart3 className="w-6 h-6" /> },

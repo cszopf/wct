@@ -59,6 +59,11 @@ const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled, 
                     {role}
                   </button>
                 ))}
+                <div className="px-5 py-2 border-t border-slate-50">
+                  <p className="text-[9px] text-slate-400 font-subheader leading-tight">
+                    You will be routed to the portal for your selected role.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -126,6 +131,9 @@ const Header: React.FC<HeaderProps> = ({ currentRole, onRoleChange, isScrolled, 
                   </button>
                 ))}
               </div>
+              <p className="text-[10px] text-slate-400 font-subheader mt-4 px-2">
+                You will be routed to the portal for your selected role.
+              </p>
             </div>
           </div>
 
