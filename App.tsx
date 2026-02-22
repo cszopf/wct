@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { UserRole } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -181,6 +182,7 @@ const App: React.FC = () => {
         onClose={() => setIsDemoOpen(false)} 
         onConfirm={handleDemoConfirm}
       />
+      <SpeedInsights />
     </div>
   );
 };
