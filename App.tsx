@@ -17,6 +17,7 @@ import FraudTrackerModal from './components/FraudTrackerModal';
 import BrandGuidelinesModal from './components/BrandGuidelinesModal';
 import { getPortalDestination } from './utils';
 import { X, Zap } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -181,6 +182,7 @@ const App: React.FC = () => {
         onClose={() => setIsDemoOpen(false)} 
         onConfirm={handleDemoConfirm}
       />
+      <SpeedInsights />
     </div>
   );
 };
