@@ -34,6 +34,7 @@ const TeamSection: React.FC = () => {
       role: "Funding Manager", 
       category: "Funding Team", 
       email: `jenn${domain}`, 
+      phone: "614-882-8022 ext. 214",
       img: "https://www.dropbox.com/scl/fi/m48rihrnihms6yjlxqxtj/Screenshot-2026-02-15-at-9.33.43-AM.png?rlkey=gq76tews9z7unjq5p071z239o&st=078wfb82&dl=1" 
     },
 
@@ -43,6 +44,7 @@ const TeamSection: React.FC = () => {
       role: "Title Manager", 
       category: "Title Team", 
       email: `jacqueline${domain}`, 
+      phone: "614-882-8022 ext. 203",
       img: "https://www.dropbox.com/scl/fi/hlvz9cuwfjdowu2syudtx/Screenshot-2026-02-15-at-9.33.51-AM.png?rlkey=l8va47z2bze26dao1u1bm21wz&st=ntih4rpi&dl=1" 
     },
     { 
@@ -50,6 +52,7 @@ const TeamSection: React.FC = () => {
       role: "Title Administrator", 
       category: "Title Team", 
       email: `stephanie${domain}`, 
+      phone: "614-882-8022 ext. 202",
       img: "https://www.dropbox.com/scl/fi/yzcipapkx9qcoyzctv1mk/Screenshot-2026-02-15-at-9.33.55-AM.png?rlkey=m7aajb87r02ldzf943vfd71eg&st=94zmzlf3&dl=1" 
     },
     { 
@@ -57,6 +60,7 @@ const TeamSection: React.FC = () => {
       role: "Title Processor", 
       category: "Title Team", 
       email: `cheyanne${domain}`, 
+      phone: "614-882-8022 ext. 213",
       img: "https://www.dropbox.com/scl/fi/mw9ftxzbqreojj3nskhy1/Screenshot-2026-02-15-at-9.34.00-AM.png?rlkey=60lj4giemk8tcuxapyp46e7va&st=t20d8ee2&dl=1" 
     },
     { 
@@ -64,6 +68,7 @@ const TeamSection: React.FC = () => {
       role: "Title Processor", 
       category: "Title Team", 
       email: `gracie${domain}`, 
+      phone: "614-882-8022 ext. 218",
       img: "https://www.dropbox.com/scl/fi/w8qf447c6u4o86s81ilub/Screenshot-2026-02-15-at-9.34.05-AM.png?rlkey=3vdat50qcd10kjd0lu808qjw7&st=2vojascy&dl=1" 
     },
     { 
@@ -71,6 +76,7 @@ const TeamSection: React.FC = () => {
       role: "Title Processor", 
       category: "Title Team", 
       email: `jgood${domain}`, 
+      phone: "614-882-8022 ext. 204",
       img: "https://www.dropbox.com/scl/fi/mdsehpa6cq9t6dlnjhmtx/Screenshot-2026-02-15-at-9.34.09-AM.png?rlkey=y7btqdhageb9a5oma0t212et6&st=80ell86h&dl=1" 
     },
 
@@ -80,6 +86,7 @@ const TeamSection: React.FC = () => {
       role: "Closing Manager", 
       category: "Closing Team", 
       email: `leslie${domain}`, 
+      phone: "614-882-8022 ext. 206",
       img: "https://www.dropbox.com/scl/fi/zvcnkdkyabv0htcgivf0n/Screenshot-2026-02-15-at-9.34.13-AM.png?rlkey=j47jjlh4u9ba3z8crr20v9n10&st=ucexjw7p&dl=1" 
     },
     { 
@@ -87,6 +94,7 @@ const TeamSection: React.FC = () => {
       role: "Escrow Officer", 
       category: "Closing Team", 
       email: `chanda${domain}`, 
+      phone: "614-882-8022 ext. 216",
       img: "https://www.dropbox.com/scl/fi/yryjf91yhoybg8b4srisv/Screenshot-2026-02-15-at-9.34.27-AM.png?rlkey=rzd1k2wa8rjmqpn7ee9tiex4t&st=mtngw46r&dl=1" 
     },
     { 
@@ -94,6 +102,7 @@ const TeamSection: React.FC = () => {
       role: "Escrow Officer", 
       category: "Closing Team", 
       email: `mara${domain}`, 
+      phone: "614-882-8022 ext. 210",
       img: "https://www.dropbox.com/scl/fi/7yc9c7skd61mqzvhptbn9/Screenshot-2026-02-15-at-9.34.17-AM.png?rlkey=a1azz0agqzmjnq7apyvpdhvg4&st=8jbkjzt2&dl=1" 
     },
     { 
@@ -101,6 +110,7 @@ const TeamSection: React.FC = () => {
       role: "Post Closing Coordinator", 
       category: "Closing Team", 
       email: `delaney${domain}`, 
+      phone: "614-882-8022 ext. 205",
       img: "https://www.dropbox.com/scl/fi/hgf387c192ep780fomi79/Screenshot-2026-02-15-at-9.34.31-AM.png?rlkey=rglr597vpdrlnmgugx3mmc1l1&st=v9i5jp9a&dl=1" 
     },
     { 
@@ -108,6 +118,7 @@ const TeamSection: React.FC = () => {
       role: "Escrow Officer", 
       category: "Closing Team", 
       email: `brandon${domain}`, 
+      phone: "614-882-8022 ext. 207",
       img: "https://www.dropbox.com/scl/fi/pmg7fckjvla014yg08rft/Screenshot-2026-02-15-at-9.34.21-AM.png?rlkey=ujhmpuhvh511sg5qmcmtmozde&st=j16euw32&dl=1" 
     },
 
@@ -185,6 +196,7 @@ const TeamSection: React.FC = () => {
       role: "Office Manager", 
       category: "Office Admin Team", 
       email: `mandy${domain}`, 
+      phone: "614-882-8022 ext. 201",
       img: "https://www.dropbox.com/scl/fi/4jg4ge1g83a6zmshwjcad/Screenshot-2026-02-15-at-9.35.16-AM.png?rlkey=t590acmu2vg8jgeiammiya9d2&st=jng94hke&dl=1" 
     },
     { 
@@ -192,6 +204,7 @@ const TeamSection: React.FC = () => {
       role: "Office Administration", 
       category: "Office Admin Team", 
       email: `emilie${domain}`, 
+      phone: "614-882-8022 ext. 212",
       img: "https://www.dropbox.com/scl/fi/bsjtccvej4si7ikuvm0ii/Screenshot-2026-02-15-at-9.35.31-AM.png?rlkey=wfnnm5c8aqrrjvbkfgp014ej0&st=zsdptegn&dl=1" 
     },
     { 
@@ -199,6 +212,7 @@ const TeamSection: React.FC = () => {
       role: "Operations Manager", 
       category: "Office Admin Team", 
       email: `paige${domain}`, 
+      phone: "614-542-9303",
       img: "https://www.dropbox.com/scl/fi/7y036ins33z1ta6nmugqn/Screenshot-2026-02-15-at-9.35.20-AM.png?rlkey=jyy8w2a7navj4tvp4bp4usei1&st=tf0kxww8&dl=1" 
     },
     { 
@@ -206,6 +220,7 @@ const TeamSection: React.FC = () => {
       role: "Office Administration", 
       category: "Office Admin Team", 
       email: `maya${domain}`, 
+      phone: "614-882-8022 ext. 208",
       img: "https://www.dropbox.com/scl/fi/lli9ykebz5xwhst4n33qm/Screenshot-2026-02-15-at-9.35.25-AM.png?rlkey=jofw5nob38ibleu4fffoo31it&st=glsu6zub&dl=1" 
     },
 
@@ -215,6 +230,7 @@ const TeamSection: React.FC = () => {
       role: "General Counsel", 
       category: "General Counsel", 
       email: `emily${domain}`, 
+      phone: "614-882-8022 ext. 217",
       img: "https://www.dropbox.com/scl/fi/ltrtz60mjcbgvoxc4nd19/Screenshot-2026-02-15-at-9.35.36-AM.png?rlkey=7z424irhtb73kf3x9guocp14c&st=01ff5khb&dl=1" 
     }
   ];
