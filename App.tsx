@@ -18,31 +18,6 @@ import BrandGuidelinesModal from './components/BrandGuidelinesModal';
 import { getPortalDestination } from './utils';
 import { X, Zap } from 'lucide-react';
 
-const QuoteModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-      <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white w-full max-w-5xl h-[80vh] rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
-        <div className="p-6 lg:p-8 bg-white border-b border-slate-100 flex items-center justify-between shrink-0">
-          <h3 className="text-xl lg:text-2xl font-header font-black text-[#004EA8]">Get a Quote</h3>
-          <button onClick={onClose} className="p-3 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-900">
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-        <div className="flex-grow relative bg-slate-100">
-          <iframe 
-            src="https://worldclasstitle.titlecapture.com/login" 
-            className="absolute inset-0 w-full h-full border-none"
-            title="Get a Quote"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; onConfirm: () => void }> = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
   return (
@@ -79,7 +54,6 @@ const App: React.FC = () => {
     return UserRole.BUYER;
   });
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
   const [isEarnestOpen, setIsEarnestOpen] = useState(false);
   const [isFraudOpen, setIsFraudOpen] = useState(false);
@@ -150,7 +124,7 @@ const App: React.FC = () => {
       <main>
         <Hero 
           role={role} 
-          onOpenQuote={() => setIsQuoteOpen(true)} 
+          onOpenQuote={() => window.open('https://worldclasstitle.titlecapture.com/login', '_blank')} 
           onHeroCTAClick={handleHeroCTAClick}
         />
         <TrustBar />
@@ -171,7 +145,6 @@ const App: React.FC = () => {
 
       <Footer onBrandClick={() => setIsBrandOpen(true)} />
       
-      <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
       <OrderTitleModal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)} />
       <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
       <FraudTrackerModal isOpen={isFraudOpen} onClose={() => setIsFraudOpen(false)} />
