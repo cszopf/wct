@@ -15,6 +15,7 @@ import OrderTitleModal from './components/OrderTitleModal';
 import EarnestMoneyModal from './components/EarnestMoneyModal';
 import FraudTrackerModal from './components/FraudTrackerModal';
 import BrandGuidelinesModal from './components/BrandGuidelinesModal';
+import SellerAuthModal from './components/SellerAuthModal';
 import { getPortalDestination } from './utils';
 import { X, Zap } from 'lucide-react';
 
@@ -58,6 +59,7 @@ const App: React.FC = () => {
   const [isEarnestOpen, setIsEarnestOpen] = useState(false);
   const [isFraudOpen, setIsFraudOpen] = useState(false);
   const [isBrandOpen, setIsBrandOpen] = useState(false);
+  const [isSellerAuthOpen, setIsSellerAuthOpen] = useState(false);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [pendingLink, setPendingLink] = useState('');
 
@@ -65,6 +67,12 @@ const App: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    
+    // Check for /sellerauth path
+    if (window.location.pathname === '/sellerauth') {
+      setIsSellerAuthOpen(true);
+    }
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -87,6 +95,9 @@ const App: React.FC = () => {
         break;
       case 'Schedule Closing':
         window.open('https://worldclasstitle.as.me/schedule/7dabae28', '_blank');
+        break;
+      case 'Seller Auth':
+        setIsSellerAuthOpen(true);
         break;
       case 'Marketing Studio':
         const marketingEl = document.getElementById('marketing');
@@ -149,6 +160,7 @@ const App: React.FC = () => {
       <EarnestMoneyModal isOpen={isEarnestOpen} onClose={() => setIsEarnestOpen(false)} />
       <FraudTrackerModal isOpen={isFraudOpen} onClose={() => setIsFraudOpen(false)} />
       <BrandGuidelinesModal isOpen={isBrandOpen} onClose={() => setIsBrandOpen(false)} />
+      <SellerAuthModal isOpen={isSellerAuthOpen} onClose={() => setIsSellerAuthOpen(false)} />
       <DemoModal 
         isOpen={isDemoOpen} 
         onClose={() => setIsDemoOpen(false)} 

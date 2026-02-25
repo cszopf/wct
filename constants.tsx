@@ -178,6 +178,7 @@ export const TOOLS = [
   { title: "Earnest Money", icon: <CreditCard className="w-6 h-6" />, color: "bg-green-50 text-green-600" },
   { title: "Fraud Tracker", icon: <ShieldCheck className="w-6 h-6" />, color: "bg-red-50 text-red-600" },
   { title: "Schedule Closing", icon: <Clock className="w-6 h-6" />, color: "bg-purple-50 text-purple-600" },
+  { title: "Seller Auth", icon: <ShieldAlert className="w-6 h-6" />, color: "bg-orange-50 text-orange-600" },
   { title: "Marketing Studio", icon: <Camera className="w-6 h-6" />, color: "bg-amber-50 text-amber-600" },
   { title: "Smart Login", icon: <Smartphone className="w-6 h-6" />, color: "bg-slate-50 text-slate-600" }
 ];
