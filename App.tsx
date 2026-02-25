@@ -16,6 +16,7 @@ import EarnestMoneyModal from './components/EarnestMoneyModal';
 import FraudTrackerModal from './components/FraudTrackerModal';
 import BrandGuidelinesModal from './components/BrandGuidelinesModal';
 import SellerAuthModal from './components/SellerAuthModal';
+import SellerAuthPage from './components/SellerAuthPage';
 import { getPortalDestination } from './utils';
 import { X, Zap } from 'lucide-react';
 
@@ -122,6 +123,11 @@ const App: React.FC = () => {
     setIsDemoOpen(false);
     setPendingLink('');
   };
+
+  // Route Handling
+  if (typeof window !== 'undefined' && window.location.pathname === '/sellerauth') {
+    return <SellerAuthPage />;
+  }
 
   return (
     <div className="min-h-screen bg-white">
