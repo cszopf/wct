@@ -47,7 +47,7 @@ const SellerAuthPage: React.FC = () => {
               </div>
               <div className="flex-grow mx-4">
                 <div className="bg-slate-800 rounded-full py-1 px-4 text-[10px] text-slate-400 font-mono truncate">
-                  form.jotform.com/cszopf/seller-authorization
+                  worldclasstitle.com/sellerauth
                 </div>
               </div>
             </div>
